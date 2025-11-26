@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🇯🇵 2026日本旅遊WEB</title>
+    <title>我的日系旅程儀表板</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+TC:wght=400;500;700&display=swap" rel="stylesheet">
@@ -215,7 +215,6 @@
                 <div id="day-tabs-container" class="inline-flex space-x-3 pb-2">
                     </div>
             </div>
-            
             <div id="timeline-container" class="pb-10"></div>
         </div>
 
@@ -458,7 +457,7 @@
         }
 
 
-        // B. 行程時間軸渲染 (已更新天數按鈕自動置中捲動功能)
+        // B. 行程時間軸渲染 (已新增天數按鈕自動置中捲動功能)
         function renderTimeline(day) {
             const container = document.getElementById('timeline-container');
             container.innerHTML = '';
@@ -483,11 +482,19 @@
                 activeTab.classList.remove('bg-white', 'text-gray-400', 'border', 'border-gray-100');
                 activeTab.classList.add('bg-gray-800', 'text-white');
 
-                // 2. *** 修正：使用 scrollIntoView 改善流暢度與對齊置中 (解決按鈕被切到的問題) ***
-                if (activeTab.scrollIntoView) {
-                    activeTab.scrollIntoView({
-                        behavior: 'smooth', // 實現平滑捲動
-                        inline: 'center'    // 確保元素水平置中
+                // 2. *** 執行天數按鈕自動居中捲動邏輯 ***
+                const scrollWrapper = document.getElementById('day-tabs-scroll-wrapper');
+                if (scrollWrapper) {
+                    // 計算目標捲動位置以將按鈕置中
+                    const targetScroll = 
+                        activeTab.offsetLeft + 
+                        (activeTab.offsetWidth / 2) - 
+                        (scrollWrapper.offsetWidth / 2);
+                    
+                    // 執行平滑捲動
+                    scrollWrapper.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
                     });
                 }
                 // ********************************************
@@ -666,4 +673,3 @@
     </script>
 </body>
 </html>
-
