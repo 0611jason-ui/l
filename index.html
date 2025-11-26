@@ -112,7 +112,7 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <p id="weather-location" class="text-xl font-medium mb-1">東京</p>
-                            <h2 id="weather-temp" class="text-4xl font-extrabold flex items-center">
+                            <h2 id="weather-temp" class="text-3xl font-extrabold flex items-center">
                                 點擊查看最新天氣
                             </h2>
                             <p id="weather-desc" class="text-sm opacity-90 mt-1">連結至日本氣象廳 (JMA) 官方預報</p>
@@ -257,7 +257,7 @@
         const __app_id = 'travel-itinerary-app';
         const __firebase_config = '{}';
         const __initial_auth_token = '';
-        const WEATHER_LOCATION = "東京, 上野"; 
+        const WEATHER_LOCATION = "東京"; 
         
         // 外部天氣連結 - 連結至日本氣象廳 (JMA) 東京預報 (繁體中文)
         const WEATHER_LINK = "https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=130010&lang=cn_zt";
@@ -362,10 +362,10 @@
                 theme: "舞濱周邊，回程",
                 items: [
                     { time: "09:00", title: "飯店退房並寄放行李", type: "stay", color: "purple", icon: "log-out", desc: "辦理退房手續，將行李寄放在飯店櫃檯。", hasImage: false },
-                    { time: "10:00", title: "舞濱 Ikspiari 購物中心", type: "shopping", color: "pink", icon: "store", desc: "在舞濱周邊的 Ikspiari 進行最後的採購。", hasImage: false },
-                    { time: "12:00", title: "午餐 (Ikspiari 或機場)", type: "food", color: "orange", icon: "utensils", desc: "享用在東京的最後一餐。", hasImage: false },
-                    { time: "14:30", title: "返回飯店領取行李", type: "transport", color: "purple", icon: "briefcase", desc: "從 Ikspiari 或其他地方返回飯店領取行李。", hasImage: false },
-                    { time: "15:00", title: "前往成田機場 (NRT T2)", type: "transport", color: "blue", icon: "train", desc: "搭乘電車或巴士前往成田機場 T2。", note: "預計 18:25 虎航 IT203 登機。", hasImage: false },
+                    { time: "10:00", title: "Aeon mall購物中心 / Costco好市多", type: "shopping", color: "pink", icon: "store", desc: "進行最後的採購。", hasImage: false },
+                    { time: "12:00", title: "午餐 (Aeon mall內享用)", type: "food", color: "orange", icon: "utensils", desc: "把握用餐時間要回飯店搭乘巴士。", hasImage: false },
+                    { time: "13:30", title: "返回飯店", type: "transport", color: "purple", icon: "train", desc: "返回飯店領取行李。", hasImage: false },
+                    { time: "14:20", title: "搭乘巴士前往成田機場 (NRT T2)", type: "transport", color: "blue", icon: "train", desc: "14:10要到公車牌等。", note: "預計 18:25 虎航 IT203 登機。", hasImage: false },
                     { time: "18:25", title: "登機 (IT203) & 返回台灣", type: "transport", color: "blue", icon: "plane-takeoff", desc: "辦理報到、通關，準備登機。", hasImage: false }
                 ]
             }
@@ -673,4 +673,3 @@
     </script>
 </body>
 </html>
-
