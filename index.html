@@ -211,7 +211,7 @@
                 <p class="text-sm text-gray-400 mt-1">點選天數切換行程細節</p>
             </header>
             
-            <div class="overflow-x-auto whitespace-nowrap mb-6 no-scrollbar">
+            <div id="day-tabs-scroll-wrapper" class="overflow-x-auto whitespace-nowrap mb-6 no-scrollbar">
                 <div id="day-tabs-container" class="inline-flex space-x-3 pb-2">
                     </div>
             </div>
@@ -457,7 +457,7 @@
         }
 
 
-        // B. 行程時間軸渲染
+        // B. 行程時間軸渲染 (已新增天數按鈕自動置中捲動功能)
         function renderTimeline(day) {
             const container = document.getElementById('timeline-container');
             container.innerHTML = '';
@@ -468,7 +468,7 @@
                 return;
             }
 
-            // 更新 Tab 樣式邏輯
+            // 1. 更新 Tab 樣式邏輯
             document.querySelectorAll('.day-tab').forEach(tab => { 
                 // 移除活躍樣式
                 tab.classList.remove('bg-gray-800', 'text-white');
@@ -481,10 +481,27 @@
             if (activeTab) {
                 activeTab.classList.remove('bg-white', 'text-gray-400', 'border', 'border-gray-100');
                 activeTab.classList.add('bg-gray-800', 'text-white');
+
+                // 2. *** 執行天數按鈕自動居中捲動邏輯 ***
+                const scrollWrapper = document.getElementById('day-tabs-scroll-wrapper');
+                if (scrollWrapper) {
+                    // 計算目標捲動位置以將按鈕置中
+                    const targetScroll = 
+                        activeTab.offsetLeft + 
+                        (activeTab.offsetWidth / 2) - 
+                        (scrollWrapper.offsetWidth / 2);
+                    
+                    // 執行平滑捲動
+                    scrollWrapper.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
+                // ********************************************
             }
             
 
-            // 渲染日期和主題
+            // 3. 渲染日期和主題
             container.insertAdjacentHTML('beforeend', `
                 <h2 class="text-2xl font-bold text-gray-800 mb-2 px-2 text-center animate-slide-up">
                     Day ${day}: ${dayData.date}
@@ -494,7 +511,7 @@
                 </p>
             `);
 
-            // 渲染時間軸項目
+            // 4. 渲染時間軸項目
             dayData.items.forEach((item, index) => {
                 const isLast = index === dayData.items.length - 1;
                 const itemHtml = `
@@ -524,13 +541,13 @@
                 container.insertAdjacentHTML('beforeend', itemHtml);
             });
 
-            // 切換日期後，將頁面捲動到最頂端
+            // 5. 切換日期後，將頁面捲動到最頂端
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth' // 平滑捲動
             });
             
-            // 重新渲染 Lucide 圖標
+            // 6. 重新渲染 Lucide 圖標
             window.lucide.createIcons();
         }
 
@@ -629,6 +646,7 @@
 
             // 如果切換到行程頁面，確保渲染 Day 1
             if (pageId === 'timeline') {
+                // 如果是首次進入，會自動捲動 Day 1 置中
                 renderTimeline(1);
             }
         }
@@ -654,5 +672,4 @@
 
     </script>
 </body>
-
 </html>
