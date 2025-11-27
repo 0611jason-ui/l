@@ -6,7 +6,7 @@
     <title>🇯🇵 2026日本旅遊</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+TC:wght=400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -341,7 +341,8 @@
                         // ** 備註已更新：加入詳細營業時間 **
                         note: "記得穿著輕便服裝，可能會赤腳及接觸水。一般營業時間為 9:00-22:00，最晚入場時間為閉館前 1 小時。請務必依照預購票券上的指定時間入場。", 
                         hasImage: true, 
-                        image: TEAMLAB_PLANETS_IMAGE // ** 圖片連結已更新 **
+                        image: TEAMLAB_PLANETS_IMAGE ,// ** 圖片連結已更新 **
+                        mapLink:"https://maps.app.goo.gl/LiZBJrZPB6xcS7m98",
                      } 
                  ]
             },
@@ -350,7 +351,18 @@
                 date: "1/15 (週四)",
                 theme: "迪士尼海洋樂園一日遊",
                 items: [
-                    { time: "08:30", title: "東京迪士尼海洋入園", type: "fun", color: "purple", icon: "sparkles", desc: "開始一整天的迪士尼海洋夢幻旅程。", note: "舞濱站搭乘單軌電車至海洋樂園。", hasImage: true, image: "https://images.unsplash.com/photo-1524312686702-861d8a573428?auto=format&fit=crop&q=80&w=600" }, // 迪士尼海洋
+                    { 
+                        time: "08:30", 
+                        title: "東京迪士尼海洋入園", 
+                        type: "fun", 
+                        color: "purple", 
+                        icon: "sparkles", 
+                        desc: "開始一整天的迪士尼海洋夢幻旅程。", 
+                        note: "舞濱站搭乘單軌電車至海洋樂園。", 
+                        hasImage: true, 
+                        image: "https://images.unsplash.com/photo-1524312686702-861d8a573428?auto=format&fit=crop&q=80&w=600",
+                        mapLink: "https://maps.app.goo.gl/VTUFWgKjtThrYhG87" // <-- 新增的導航連結
+                    }, 
                     { time: "13:00", title: "午餐 (園區內)", type: "food", color: "orange", icon: "pizza", desc: "在園區內選擇主題餐廳或輕食。", hasImage: false },
                     { time: "19:00", title: "晚餐 & 夜間表演", type: "fun", color: "red", icon: "fireworks", desc: "觀賞夜間水上表演或煙火秀。", hasImage: false },
                     { time: "22:00", title: "返回飯店", type: "stay", color: "indigo", icon: "bed", desc: "結束充實的一天，返回東京灣東方飯店。", hasImage: false }
@@ -363,7 +375,7 @@
                 items: [
                     { time: "09:00", title: "飯店退房並寄放行李", type: "stay", color: "purple", icon: "log-out", desc: "辦理退房手續，將行李寄放在飯店櫃檯。", hasImage: false },
                     { time: "10:00", title: "Aeon mall購物中心 / Costco好市多", type: "shopping", color: "pink", icon: "store", desc: "進行最後的採購。", hasImage: false },
-                    { time: "12:00", title: "午餐 (Aeon mall內享用)", type: "food", color: "orange", icon: "utensils", desc: "把握用餐時間要回飯店搭乘巴士。", hasImage: false },
+                    { time: "12:00", title: "午餐 (Aeon mall內享用)", type: "food", color: "utensils", desc: "把握用餐時間要回飯店搭乘巴士。", hasImage: false },
                     { time: "13:30", title: "返回飯店", type: "transport", color: "purple", icon: "train", desc: "返回飯店領取行李。", hasImage: false },
                     { time: "14:20", title: "搭乘巴士前往成田機場 (NRT T2)", type: "transport", color: "blue", icon: "train", desc: "14:10要到公車牌等。", note: "預計 18:25 虎航 IT203 登機。", hasImage: false },
                     { time: "18:25", title: "登機 (IT203) & 返回台灣", type: "transport", color: "blue", icon: "plane-takeoff", desc: "辦理報到、通關，準備登機。", hasImage: false }
@@ -558,9 +570,10 @@
             
             let mapButton = '';
             if (item.mapLink) {
+                // 通用導航按鈕，將按鈕文字統一為「導航至此地」
                 mapButton = `<a href="${item.mapLink}" target="_blank" class="w-full py-3.5 rounded-xl font-bold text-white bg-blue-500 hover:bg-blue-600 active:scale-[0.99] transition-transform flex items-center justify-center mt-4">
                                 <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i>
-                                在地圖上開啟
+                                導航至此地
                              </a>`;
             } else if (item.title.includes('飯店') || item.title.includes('House')) {
                 // 如果是住宿點，提供 Google Map 搜索連結
@@ -581,7 +594,7 @@
                     <div class="w-12 h-12 bg-${item.color}-100 rounded-full mx-auto flex items-center justify-center mb-3">
                         <i data-lucide="${item.icon}" class="w-6 h-6 text-${item.color}-600"></i>
                     </div>
-                    <p class="text-xs font-medium text-${item.color}-600 uppercase tracking-wider">${item.time} | ${itineraryData[day].date}</p>
+                    <p class="text-xs font-medium text-${item.color}-600 uppercase tracking-wider">${itineraryData[day].date}</p>
                     <h2 class="text-2xl font-extrabold text-gray-800 mt-1">${item.title}</h2>
                 </div>
 
