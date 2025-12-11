@@ -51,6 +51,10 @@
         .dining-area-btn.selected { background-color: #f97316; color: white; box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3); border-color: transparent; }
         .dining-type-btn.selected { background-color: #8b5cf6; color: white; box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3); border-color: transparent; }
         
+        /* 付款人按鈕樣式 */
+        .payer-btn { transition: all 0.2s; }
+        .payer-btn.selected { background-color: #10b981; color: white; border-color: #10b981; }
+
         @keyframes highlight-pulse {
             0% { background-color: rgba(255, 251, 235, 1); }
             50% { background-color: rgba(254, 243, 199, 0.8); }
@@ -71,6 +75,23 @@
                     計算中...
                 </div>
             </header>
+
+            <div id="announcement-card" class="app-card p-4 mb-6 bg-amber-50 border border-amber-200 hidden relative overflow-hidden">
+                <div class="absolute -top-6 -right-6 w-20 h-20 bg-amber-100 rounded-full opacity-50 blur-xl"></div>
+                <div class="relative z-10">
+                    <p class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-3 flex items-center">
+                        <i data-lucide="megaphone" class="w-4 h-4 mr-2 animate-bounce"></i>
+                        旅途公告
+                    </p>
+                    <div id="announcement-content" class="space-y-2"></div>
+                    <div class="mt-2 text-right">
+                        <p class="text-[10px] text-amber-400 font-medium opacity-80 flex justify-end items-center">
+                            <i data-lucide="refresh-cw" class="w-3 h-3 mr-1"></i>
+                            <span id="announcement-time">同步中...</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             <div id="weather-card" class="app-card p-5 mb-6 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-xl overflow-hidden relative">
                 <div id="weather-content" class="relative z-10">
@@ -108,23 +129,6 @@
                 </div>
             </div>
 
-            <div id="announcement-card" class="app-card p-4 mb-8 bg-amber-50 border border-amber-200 hidden relative overflow-hidden">
-                <div class="absolute -top-6 -right-6 w-20 h-20 bg-amber-100 rounded-full opacity-50 blur-xl"></div>
-                <div class="relative z-10">
-                    <p class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-3 flex items-center">
-                        <i data-lucide="megaphone" class="w-4 h-4 mr-2 animate-bounce"></i>
-                        旅途公告
-                    </p>
-                    <div id="announcement-content" class="space-y-2"></div>
-                    <div class="mt-2 text-right">
-                        <p class="text-[10px] text-amber-400 font-medium opacity-80 flex justify-end items-center">
-                            <i data-lucide="refresh-cw" class="w-3 h-3 mr-1"></i>
-                            <span id="announcement-time">同步中...</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
             <div class="app-card p-6 mb-8 bg-rose-50 border border-rose-100">
                 <p class="text-xs font-bold text-rose-600 uppercase tracking-wider mb-4 flex items-center">
                     <i data-lucide="plane-takeoff" class="w-4 h-4 mr-1"></i>
@@ -142,6 +146,7 @@
                         <span>02:25 (TPE T1)</span>
                         <span>06:30 (NRT T1)</span>
                     </div>
+                    <p class="text-sm text-gray-500 mt-1">紅眼航班，請提早休息。</p>
                 </div>
                 <div>
                     <div class="flex justify-between items-center mb-2">
@@ -155,6 +160,7 @@
                         <span>18:25 (NRT T2)</span>
                         <span>21:30 (TPE T1)</span>
                     </div>
+                    <p class="text-sm text-gray-500 mt-1">請預留充裕時間前往 T2 報到。</p>
                 </div>
             </div>
 
@@ -194,6 +200,24 @@
                 </p>
                 <ul id="packing-list" class="space-y-3"></ul>
             </div>
+
+             <div class="app-card p-4 mb-8 bg-red-50 border border-red-100 text-center">
+                <p class="text-xs font-bold text-red-500 uppercase tracking-wider mb-3">緊急聯絡資訊</p>
+                <div class="flex justify-around text-sm">
+                    <div class="flex flex-col items-center text-gray-700">
+                        <span class="font-bold text-lg">110</span>
+                        <span class="text-xs text-gray-400">警察局</span>
+                    </div>
+                    <div class="flex flex-col items-center text-gray-700">
+                        <span class="font-bold text-lg">119</span>
+                        <span class="text-xs text-gray-400">火警/救護</span>
+                    </div>
+                    <div class="flex flex-col items-center text-gray-700">
+                        <span class="font-bold text-lg">駐日代表</span>
+                        <span class="text-xs text-gray-400">+81-3-3280-7111</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="timeline-page" class="page-transition hidden-page">
@@ -211,7 +235,7 @@
         <div id="budget-page" class="page-transition hidden-page">
             <header class="mb-6">
                 <h1 class="text-3xl font-bold text-gray-800 tracking-wider">旅遊錢包</h1>
-                <p class="text-sm text-gray-400 mt-1">雲端支出紀錄 (自動同步)</p>
+                <p class="text-sm text-gray-400 mt-1">雲端支出紀錄 (含付款人)</p>
             </header>
 
             <div class="app-card p-6 mb-6 bg-gradient-to-br from-gray-800 to-gray-900 text-white shadow-lg">
@@ -228,7 +252,17 @@
 
             <div class="app-card p-5 mb-6 shadow-md">
                 <p class="text-xs font-bold text-gray-500 uppercase mb-3">新增支出</p>
+                
                 <div class="grid grid-cols-6 gap-2 mb-4" id="category-selector"></div>
+                
+                <div class="mb-4">
+                    <div class="flex justify-between items-center mb-2">
+                         <p class="text-[10px] font-bold text-gray-400 uppercase">是誰先墊錢? (可多選)</p>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2" id="payer-selector">
+                        </div>
+                </div>
+
                 <div class="grid grid-cols-1 gap-3 mb-4">
                     <div class="flex items-center bg-gray-50 rounded-xl px-3 border border-gray-200 focus-within:border-indigo-500 transition-colors">
                         <i data-lucide="pen-line" class="w-4 h-4 text-gray-400 mr-2"></i>
@@ -323,12 +357,15 @@
     </div>
 
     <script>
-        // ★★★ 務必將下面這行，換成你部署後拿到的網址 ★★★
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfKE9a5_Ourf3PqWHXBX4KqGOQyqUrz5fK-fNdiMZTAac6vuNDlGuc-XD5IeLGS1gd/exec"; 
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfKE9a5_Ourf3PqWHXBX4KqGOQyqUrz5fK-fNdiMZTAac6vuNDlGuc-XD5IeLGS1gd/exec";
         
         const RATE = 0.205;
         let expenses = [];
         let selectedCategory = 'food';
+        
+        // ★★★ 新增：付款人邏輯 ★★★
+        const PAYERS = ["正木", "佳菱", "又誠", "祐豪"];
+        let selectedPayers = new Set(); // 使用 Set 來儲存多選
 
         // 靜態資料設定
         const weatherLocations = [
@@ -340,56 +377,115 @@
         let currentLocIndex = 0;
         const WEATHER_LINK = "https://www.data.jma.go.jp/multi/yoho/yoho_detail.html?code=130010&lang=cn_zt";
         const ANNOUNCEMENT_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR5e_vVCn8BCbk76na4NZZhpKjeTzVjjo7L6xl7jiBlYZomRcYGF7CNIkmtg2jjLRK-Ra4eLBZuXEf9/pub?gid=0&single=true&output=csv";
+        const SHIBUYA_SKY_IMAGE = "https://www.shibuya-scramble-square.com/sky/images/share_image.png";
+        const TEAMLAB_PLANETS_IMAGE = "https://imagedelivery.net/b5EBo9Uo-OK6SM09ZTkEZQ/89JNH3JuCgHZcGbACeD2vU/width=3840,quality=80";
 
-        // 行程資料
+
+        // 行程資料 (保留原本完整的資料與圖片)
         const itineraryData = {
-            1: { date: "1/11 (週日)", theme: "成田抵達，涉谷潮流", items: [
-                { time: "02:25", title: "桃園機場 (TPE T1) 出境", type: "transport", color: "blue", icon: "plane-takeoff", desc: "預計00:00辦理報到。", hasImage: false },
-                { time: "06:30", title: "成田機場 (NRT T1) 入境", type: "transport", color: "blue", icon: "plane-landing", desc: "樂桃 MM620 抵達。", note: "紅眼航班。", hasImage: false },
-                { time: "08:00", title: "搭乘skyliner至京成上野站", type: "transport", color: "slate", icon: "train", desc: "已在klook購票。", hasImage: false },
-                { time: "09:00", title: "寄放行李", type: "stay", color: "indigo", icon: "bed", desc: "bnb寄放行李。", hasImage: false },
-                { time: "10:00", title: "池袋地區漫步", type: "sightseeing", color: "yellow", icon: "map-pin", desc: "池袋散步。", hasImage: false },
-                { time: "12:00", title: "午餐：池袋周邊", type: "food", color: "orange", icon: "utensils", desc: "拉麵或定食。", hasImage: false },
-                { time: "14:30", title: "澀谷、原宿、表參道", type: "shopping", color: "pink", icon: "shopping-bag", desc: "竹下通、表參道。", hasImage: true, image: "https://static.gltjp.com/glt/data/article/21000/20511/20231107_091714_48c48022_w1920.webp" },
-                { time: "17:30", title: "澀谷 SHIBUYA SKY", type: "sightseeing", color: "sky", icon: "telescope", desc: "日落展望台。", note: "記得提前換票。", hasImage: true, image: "https://www.shibuya-scramble-square.com/sky/images/share_image.png" },
-                { time: "20:00", title: "Check-in Paul House", type: "stay", color: "indigo", icon: "bed", desc: "返回上野入住。", hasImage: false }
-            ]},
-            2: { date: "1/12 (週一)", theme: "築地海鮮與鎌倉高校巡禮", items: [
-                { time: "08:00", title: "築地場外市場", type: "food", color: "orange", icon: "fish", desc: "早餐海鮮丼。", hasImage: true, image: "https://images.unsplash.com/photo-1518659684787-846399b14800?auto=format&fit=crop&q=80&w=600" },
-                { time: "10:30", title: "前往鎌倉", type: "transport", color: "slate", icon: "bus", desc: "江之島電鐵。", hasImage: false },
-                { time: "12:00", title: "鶴岡八幡宮", type: "sightseeing", color: "red", icon: "church", desc: "鎌倉神社。", hasImage: false },
-                { time: "14:00", title: "鎌倉大佛", type: "sightseeing", color: "green", icon: "mountain", desc: "高德院大佛。", hasImage: true, image: "https://www.bring-you.info/imgs/2020/05/kamakura-daibutsu-11.jpg", mapLink: "https://maps.app.goo.gl/METUAAiYjGMZNZak8" },
-                { time: "16:00", title: "鎌倉高校前站", type: "sightseeing", color: "purple", icon: "camera", desc: "灌籃高手場景。", hasImage: true, image: "https://images.unsplash.com/photo-1588667362615-56f4d2f8832c?auto=format&fit=crop&q=80&w=600" },
-                { time: "18:30", title: "晚餐 & 返回上野", type: "food", color: "orange", icon: "ramen", desc: "晚餐。", hasImage: false }
-            ]},
-            3: { date: "1/13 (週二)", theme: "御殿場購物與阿美橫町", items: [
-                { time: "09:00", title: "御殿場 Outlets", type: "shopping", color: "pink", icon: "gift", desc: "富士山下購物。", hasImage: true, image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/pdmixlvkdtvhh2kkgesu/%E5%BE%A1%E6%AE%BF%E5%A0%B4%20Premium%20Outlets%EF%BC%86%E6%9C%A8%E4%B9%8B%E8%8A%B1%E4%B9%8B%E6%B9%AF%E7%A7%81%E4%BA%BA%E5%8C%85%E8%BB%8A%E4%B8%80%E6%97%A5%E9%81%8A.jpg" },
-                { time: "13:00", title: "午餐 (Outlet內)", type: "food", color: "orange", icon: "coffee", desc: "Outlet用餐。", hasImage: false },
-                { time: "18:00", title: "阿美橫丁", type: "shopping", color: "amber", icon: "store", desc: "藥妝採購。", hasImage: true ,image: "https://static.gltjp.com/glt/data/article/21000/20604/20240127_170506_1fb1a47e_w1920.webp"},
-                { time: "20:00", title: "晚餐：居酒屋", type: "food", color: "red", icon: "beer", desc: "阿美橫丁居酒屋。", hasImage: false }
-            ]},
-            4: { date: "1/14 (週三)", theme: "淺草、晴空塔與 teamLab", items: [
-                { time: "09:30", title: "出發晴空塔", type: "transport", color: "blue", icon: "bus", desc: "前往押上。", hasImage: false },
-                { time: "10:00", title: "晴空塔", type: "sightseeing", color: "sky", icon: "tower-control", desc: "參觀晴空塔。", hasImage: true, image:"https://dimg04.tripcdn.com/images/0102s120007hc2ubpAC60.jpg" },
-                { time: "11:00", title: "午餐：敘敘苑", type: "food", color: "orange", icon: "flame", desc: "30樓燒肉。", hasImage: false },
-                { time: "13:00", title: "淺草寺", type: "sightseeing", color: "red", icon: "camera", desc: "雷門參拜。", hasImage: true, image: "https://static.gltjp.com/glt/data/article/11000/10068/20230523_002407_ad532d77_w1920.webp" },
-                { time: "15:00", title: "移動至舞濱飯店", type: "stay", color: "purple", icon: "luggage", desc: "Check-in 東京灣東方飯店。", hasImage: false },
-                { time: "17:30", title: "teamLab Planets", type: "fun", color: "indigo", icon: "sparkles", desc: "數位藝術展。", note: "會赤腳碰水。", hasImage: true, image: "https://imagedelivery.net/b5EBo9Uo-OK6SM09ZTkEZQ/89JNH3JuCgHZcGbACeD2vU/width=3840,quality=80", mapLink:"https://maps.app.goo.gl/LiZBJrZPB6xcS7m98" }
-            ]},
-            5: { date: "1/15 (週四)", theme: "迪士尼海洋", items: [
-                { time: "08:30", title: "迪士尼海洋入園", type: "fun", color: "purple", icon: "sparkles", desc: "DisneySea。", note: "搭乘單軌電車。", hasImage: true, image: "https://images.unsplash.com/photo-1524312686702-861d8a573428?auto=format&fit=crop&q=80&w=600", mapLink: "https://maps.app.goo.gl/VTUFWgKjtThrYhG87" },
-                { time: "13:00", title: "午餐 (園區)", type: "food", color: "orange", icon: "pizza", desc: "園區餐廳。", hasImage: false },
-                { time: "19:00", title: "夜間表演", type: "fun", color: "red", icon: "fireworks", desc: "水上表演。", hasImage: false },
-                { time: "22:00", title: "返回飯店", type: "stay", color: "indigo", icon: "bed", desc: "回飯店休息。", hasImage: false }
-            ]},
-            6: { date: "1/16 (週五)", theme: "最後採購，回程", items: [
-                { time: "09:00", title: "退房寄行李", type: "stay", color: "purple", icon: "log-out", desc: "退房。", hasImage: false },
-                { time: "10:00", title: "Aeon Mall / Costco", type: "shopping", color: "pink", icon: "store", desc: "最後採購。", hasImage: false },
-                { time: "12:00", title: "午餐", type: "food", color: "utensils", desc: "Aeon Mall內。", hasImage: false },
-                { time: "13:30", title: "回飯店拿行李", type: "transport", color: "purple", icon: "train", desc: "取回行李。", hasImage: false },
-                { time: "14:20", title: "搭巴士往成田", type: "transport", color: "blue", icon: "train", desc: "14:10到站牌。", note: "預計18:25登機。", hasImage: false },
-                { time: "18:25", title: "登機 (IT203)", type: "transport", color: "blue", icon: "plane-takeoff", desc: "返回台灣。", hasImage: false }
-            ]}
+            1: {
+                date: "1/11 (週日)",
+                theme: "成田抵達，涉谷潮流",
+                items: [
+                    { time: "02:25", title: "桃園機場 (TPE T1) 出境", type: "transport", color: "blue", icon: "plane-takeoff", desc: "預計00:00辦理報到。", hasImage: false },
+                    { time: "06:30", title: "成田機場 (NRT T1) 入境", type: "transport", color: "blue", icon: "plane-landing", desc: "樂桃 MM620 抵達。辦理入境手續、購買交通券。", note: "紅眼航班，注意精神狀態。預計抵達 NRT T1。", hasImage: false },
+                    { time: "08:00", title: "搭乘skyliner至京成上野站", type: "transport", color: "slate", icon: "train", desc: "搭乘京成電鐵前往上野。", note: "已經在klook在購票。", hasImage: false },
+                    { time: "09:00", title: "寄放行李", type: "stay", color: "indigo", icon: "bed", desc: "前往bnb寄放行李。", note: "9:00-1800可寄放行李時間。", hasImage: false },
+                    { time: "10:00", title: "池袋地區漫步", type: "sightseeing", color: "yellow", icon: "map-pin", desc: "池袋東口或西口散步，熟悉周邊環境。", hasImage: false },
+                    { time: "12:00", title: "午餐：池袋周邊", type: "food", color: "orange", icon: "utensils", desc: "在池袋尋找午餐，可能是拉麵或定食。", hasImage: false },
+                    { time: "14:30", title: "澀谷、原宿、表參道", type: "shopping", color: "pink", icon: "shopping-bag", desc: "東京潮流文化集中地，逛街採購與感受氛圍。", note: "重點：竹下通、表參道精品店。", hasImage: true, image: "https://static.gltjp.com/glt/data/article/21000/20511/20231107_091714_48c48022_w1920.webp" },
+                    { 
+                        time: "17:30", 
+                        title: "澀谷 SHIBUYA SKY 展望台", 
+                        type: "sightseeing", 
+                        color: "sky", 
+                        icon: "telescope", 
+                        desc: "登上展望台，欣賞東京日落及著名的十字路口。", 
+                        note: "記得提前換票，預計在日落時段。", 
+                        hasImage: true, 
+                        image: SHIBUYA_SKY_IMAGE 
+                    }, 
+                    { time: "20:00", title: "Check-in Paul House (上野)", type: "stay", color: "indigo", icon: "bed", desc: "返回上野，領取行李，辦理 Paul House 入住。", note: "第一段住宿開始，共 3 晚。", hasImage: false }
+                ]
+            },
+            2: {
+                date: "1/12 (週一)",
+                theme: "築地海鮮與鎌倉高校巡禮",
+                items: [
+                    { time: "08:00", title: "築地場外市場", type: "food", color: "orange", icon: "fish", desc: "早餐：海鮮丼、玉子燒等，享受新鮮美味。", note: "建議提早前往，避開人潮。", hasImage: true, image: "https://images.unsplash.com/photo-1518659684787-846399b14800?auto=format&fit=crop&q=80&w=600" },
+                    { time: "10:30", title: "前往鎌倉 (江之島電鐵)", type: "transport", color: "slate", icon: "bus", desc: "搭乘電車前往鎌倉，準備開始一日遊。", note: "需購買一日券或使用交通卡。", hasImage: false },
+                    { time: "12:00", title: "鶴岡八幡宮", type: "sightseeing", color: "red", icon: "church", desc: "鎌倉最主要的神社，感受古都的歷史氛圍。", hasImage: false },
+                    { time: "14:00", title: "鎌倉大佛 (高德院)", type: "sightseeing", color: "green", icon: "mountain", desc: "日本第二大的佛像，近距離感受其莊嚴。", hasImage: true, image: "https://www.bring-you.info/imgs/2020/05/kamakura-daibutsu-11.jpg", mapLink: "https://maps.app.goo.gl/METUAAiYjGMZNZak8" },
+                    { time: "16:00", title: "鎌倉高校前站", type: "sightseeing", color: "purple", icon: "camera", desc: "《灌籃高手》經典平交道場景拍照打卡。", note: "注意交通安全，不要影響當地居民。", hasImage: true, image: "https://images.unsplash.com/photo-1588667362615-56f4d2f8832c?auto=format&fit=crop&q=80&w=600" },
+                    { time: "18:30", title: "晚餐 & 返回上野", type: "food", color: "orange", icon: "ramen", desc: "在鎌倉或返回上野後用晚餐。", hasImage: false }
+                ]
+            },
+            3: {
+                date: "1/13 (週二)",
+                theme: "御殿場購物與阿美橫町",
+                items: [
+                    { time: "09:00", title: "御殿場 Premium Outlets", type: "shopping", color: "pink", icon: "gift", desc: "開始一整天的購物行程，靠近富士山。", note: "預留一整天時間，交通方式需提前確認 (巴士或火車)。", hasImage: true, image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/pdmixlvkdtvhh2kkgesu/%E5%BE%A1%E6%AE%BF%E5%A0%B4%20Premium%20Outlets%EF%BC%86%E6%9C%A8%E4%B9%8B%E8%8A%B1%E4%B9%8B%E6%B9%AF%E7%A7%81%E4%BA%BA%E5%8C%85%E8%BB%8A%E4%B8%80%E6%97%A5%E9%81%8A.jpg" },
+                    { time: "13:00", title: "午餐 (Outlet內)", type: "food", color: "orange", icon: "coffee", desc: "在 Outlet 內的美食廣場或餐廳用餐。", hasImage: false },
+                    { time: "18:00", title: "阿美橫丁 (Ameya-Yokocho)", type: "shopping", color: "amber", icon: "store", desc: "返回上野，在阿美橫丁體驗熱鬧的市集氛圍，採購零食藥妝。", note: "OS藥妝、多慶屋...必逛", hasImage: true ,image: "https://static.gltjp.com/glt/data/article/21000/20604/20240127_170506_1fb1a47e_w1920.webp"},
+                    { time: "20:00", title: "晚餐：阿美橫丁居酒屋", type: "food", color: "red", icon: "beer", desc: "在阿美橫丁附近享用日式居酒屋美食。", hasImage: false }
+                ]
+            },
+            4: {
+                 date: "1/14 (週三)",
+                 theme: "淺草、晴空塔與 teamLab 移居舞濱",
+                 items: [
+                     { time: "09:30", title: "出發晴空塔", type: "transport", color: "blue", icon: "bus", desc: "抵達押上站。", hasImage: false,},
+                     { time: "10:00", title: "晴空塔 Skytree", type: "sightseeing", color: "sky", icon: "tower-control", desc: "參觀晴空塔及 Solamachi 商場。", hasImage: true,image:"https://dimg04.tripcdn.com/images/0102s120007hc2ubpAC60.jpg" },
+                     { time: "11:00", title: "午餐：敘敘苑或同級燒肉", type: "food", color: "orange", icon: "flame", desc: "在晴空塔30樓享用午餐燒肉。", hasImage: false },
+                     { time: "13:00", title:  "淺草寺", type: "sightseeing", color: "red", icon: "camera", desc: "參觀雷門、仲見世通，並參拜淺草寺。", hasImage: true, image: "https://static.gltjp.com/glt/data/article/11000/10068/20230523_002407_ad532d77_w1920.webp" },
+                     { time: "15:00", title: "前往東京灣東方飯店 Check-in", type: "stay", color: "purple", icon: "luggage", desc: "從上野搭車前往舞濱，將行李寄放至飯店。", note: "第二段住宿開始 (2 晚)，預計 1/16 退房。", hasImage: false },
+                     { 
+                        time: "17:30", 
+                        title: "teamLab Planets TOKYO DMM", 
+                        type: "fun", 
+                        color: "indigo", 
+                        icon: "sparkles", 
+                        desc: "體驗型數位藝術展，沉浸在光影世界。", 
+                        note: "記得穿著輕便服裝，可能會赤腳及接觸水。一般營業時間為 9:00-22:00，最晚入場時間為閉館前 1 小時。請務必依照預購票券上的指定時間入場。", 
+                        hasImage: true, 
+                        image: TEAMLAB_PLANETS_IMAGE,
+                        mapLink:"https://maps.app.goo.gl/LiZBJrZPB6xcS7m98",
+                     } 
+                 ]
+            },
+            5: {
+                date: "1/15 (週四)",
+                theme: "迪士尼海洋樂園一日遊",
+                items: [
+                    { 
+                        time: "08:30", 
+                        title: "東京迪士尼海洋入園", 
+                        type: "fun", 
+                        color: "purple", 
+                        icon: "sparkles", 
+                        desc: "開始一整天的迪士尼海洋夢幻旅程。", 
+                        note: "舞濱站搭乘單軌電車至海洋樂園。", 
+                        hasImage: true, 
+                        image: "https://images.unsplash.com/photo-1524312686702-861d8a573428?auto=format&fit=crop&q=80&w=600",
+                        mapLink: "https://maps.app.goo.gl/VTUFWgKjtThrYhG87" 
+                    }, 
+                    { time: "13:00", title: "午餐 (園區內)", type: "food", color: "orange", icon: "pizza", desc: "在園區內選擇主題餐廳或輕食。", hasImage: false },
+                    { time: "19:00", title: "晚餐 & 夜間表演", type: "fun", color: "red", icon: "fireworks", desc: "觀賞夜間水上表演或煙火秀。", hasImage: false },
+                    { time: "22:00", title: "返回飯店", type: "stay", color: "indigo", icon: "bed", desc: "結束充實的一天，返回東京灣東方飯店。", hasImage: false }
+                ]
+            },
+            6: {
+                date: "1/16 (週五)",
+                theme: "舞濱周邊，回程",
+                items: [
+                    { time: "09:00", title: "飯店退房並寄放行李", type: "stay", color: "purple", icon: "log-out", desc: "辦理退房手續，將行李寄放在飯店櫃檯。", hasImage: false },
+                    { time: "10:00", title: "Aeon mall購物中心 / Costco好市多", type: "shopping", color: "pink", icon: "store", desc: "進行最後的採購。", hasImage: false },
+                    { time: "12:00", title: "午餐 (Aeon mall內享用)", type: "food", color: "utensils", desc: "把握用餐時間要回飯店搭乘巴士。", hasImage: false },
+                    { time: "13:30", title: "返回飯店", type: "transport", color: "purple", icon: "train", desc: "返回飯店領取行李。", hasImage: false },
+                    { time: "14:20", title: "搭乘巴士前往成田機場 (NRT T2)", type: "transport", color: "blue", icon: "train", desc: "14:10要到公車牌等。", note: "預計 18:25 虎航 IT203 登機。", hasImage: false },
+                    { time: "18:25", title: "登機 (IT203) & 返回台灣", type: "transport", color: "blue", icon: "plane-takeoff", desc: "辦理報到、通關，準備登機。", hasImage: false }
+                ]
+            }
         };
 
         const expenseCategories = {
@@ -402,13 +498,109 @@
         };
 
         const defaultRestaurants = [
-            { id: 1, name: "敘敘苑 晴空塔店", area: "晴空塔", link: "https://maps.app.goo.gl/JiMEGiAKUieexJ4VA", types: ["午餐", "晚餐"], images: ["https://tblg.k-img.com/resize/640x360c/restaurant/images/Rvw/279857/34ac488b61f26eb29c785c64774cd7b2.jpg?token=fac39fe&api=v2"] },
-            { id: 2, name: "鴨to葱", area: "上野", link: "https://maps.app.goo.gl/RzhkeUa3SkW4dC7C8", types: ["午餐","晚餐", "消夜"], images: ["https://tblg.k-img.com/resize/640x360c/restaurant/images/Rvw/183222/930042b49ce10d233284a34cba284cde.jpg?token=c0b3259&api=v2"] },
-            { id: 3, name: "根岸牛舌", area: ["上野", "澀谷", "池袋"], locationLinks: { "上野": "https://maps.app.goo.gl/ueno_link_here", "澀谷": "https://maps.app.goo.gl/AEis6dWZorSQiSnY7", "優惠券":"https://linshibi.com/?p=42950" }, types: ["午餐","晚餐"], images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRThlTAy4MzNpKzEfsj6w0_7W4v-FRHsQErPg&s"] },
-            { id: 4, name: "HARBS", area: ["上野", "澀谷", "池袋","銀座"], locationLinks: { "上野":"https://maps.app.goo.gl/f2MutjMfT3RiMCxd9", "池袋":"https://maps.app.goo.gl/JkJ8Sw143vwZNsSN6" }, types: ["點心"], images: ["https://bobbyfun.tw/wp-content/uploads/pixnet/d3104fd3491de086909696beb4a953a5.jpg"] },
-            { id: 5, name: "鰻の成瀬", area: ["上野", "原宿", "六本木"], locationLinks: { "上野":"https://maps.app.goo.gl/ij8T88WPUAg9xtaV8", "原宿":"https://maps.app.goo.gl/o61CRXB8RHTuGRFP7" }, types: ["午餐","晚餐"], images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbTsOhQJsiu1wJsztlUkVIjeE6SRjZ7QAxdg&s"] },
-            { id: 6, name: "Afuri 拉麵", area: ["澀谷", "原宿", "六本木"], locationLinks: { "原宿":"https://maps.app.goo.gl/oXcmFjunWG1hybfHA", "澀谷":"https://maps.app.goo.gl/bwGmehYR18UpJHfA9" }, types: ["午餐","晚餐"], images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxHIsCS7VKk2MonvWaXm6z-Y_9j7_4CrcTBA&s"] }
+            {
+                id: 1,
+                name: "敘敘苑 晴空塔店",
+                description: "位於晴空塔30樓的高級燒肉，景觀無敵，午間套餐CP值很高，建議提前一個月訂位。",
+                area: "晴空塔",
+                link: "https://maps.app.goo.gl/JiMEGiAKUieexJ4VA",
+                types: ["午餐", "晚餐"],
+                images: [
+                   "https://tblg.k-img.com/resize/640x360c/restaurant/images/Rvw/279857/34ac488b61f26eb29c785c64774cd7b2.jpg?token=fac39fe&api=v2",
+                   "https://img.poibank.com/z5-MkJJdtzksCxWVdwELJna4TCQ=/W3siZm9ybWF0IjoianBnIn0seyJrZXkiOiJzdWdnZXN0aW9uLzI2NDUwMjM1LzYzMDcwNi8xNTc2OTU0MjQxOTczIn0seyJyZXNpemUiOnsid2lkdGgiOiIxMjQyIn19XQ==" 
+                ]
+            },
+             {
+                 id: 2,
+                 name: "鴨to葱",
+                description: "網路知名拉麵店，24小時營業鴨肉拉麵，尖峰時期須排隊。",
+                 area: "上野",
+                 link: "https://maps.app.goo.gl/RzhkeUa3SkW4dC7C8",
+                 types: ["午餐","晚餐", "消夜"],
+                 images: ["https://tblg.k-img.com/resize/640x360c/restaurant/images/Rvw/183222/930042b49ce10d233284a34cba284cde.jpg?token=c0b3259&api=v2",
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZjBFk7yACtf-TidyOEUEPyN5jD2-0noQ2Rw&s"
+                 ]
+             },
+             {
+                 id: 3,
+                 name: "根岸牛舌 Negishi (多間分店)",
+                 description: "東京常見的平價美味牛舌連鎖店，特色是提供厚切牛舌、山藥泥麥飯、牛尾湯的套餐。",
+                 area: ["上野", "澀谷", "池袋"], 
+                 locationLinks: {
+                     "上野": "https://maps.app.goo.gl/ueno_link_here", 
+                     "澀谷道玄坂": "https://maps.app.goo.gl/AEis6dWZorSQiSnY7",
+                     "澀谷中心街": "https://maps.app.goo.gl/uhEiEj3kgF3Vu41A9",
+                     "原宿": "https://maps.app.goo.gl/tf77h2y7xdx7QfY9A",
+                     "中文菜單":"https://www.negishi.co.jp/CN/menu.html",
+                     "林4b優惠券":"https://linshibi.com/?p=42950"
+                 },
+                 link: "", 
+                 types: ["午餐","晚餐"],
+                 images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRThlTAy4MzNpKzEfsj6w0_7W4v-FRHsQErPg&s",
+                            "https://natasha-traveler.tw/wp-content/uploads/negishi_tokyo-3-1.jpg",
+                        "https://linshibi.com/wp-content/uploads/2025/02/%E7%8D%A8%E5%AE%B63-Negishi%E7%89%9B%E8%88%8C%EF%BC%88%E6%A0%B9%E5%B2%B8%EF%BC%8C%E3%81%AD%E3%81%8E%E3%81%97%EF%BC%89%E6%AF%8F%E7%B5%84%E9%80%81%E4%B8%80%E7%9B%A4%E8%BF%B7%E4%BD%A0%E5%8B%81%E9%81%93%E7%89%9B%E8%88%8C.jpg"
+                 ]
+             },
+             {
+                 id: 4,
+                 name: "HARBS蛋糕",
+                 description: "推薦首選必吃招牌水果千層蛋糕，以薄餅皮、北海道鮮奶油和當季新鮮水果堆疊，口感豐富清爽",
+                 area: ["上野", "澀谷", "池袋","銀座"], 
+                 locationLinks: {
+                     "上野":"https://maps.app.goo.gl/f2MutjMfT3RiMCxd9", 
+                     "池袋":"https://maps.app.goo.gl/JkJ8Sw143vwZNsSN6",
+                     "銀座":"https://maps.app.goo.gl/nkYrYFN4qX18atog6",
+                     "澀谷櫻花舞台":"https://maps.app.goo.gl/hk7y6FUy2BFKA3WU6",
+                     "澀谷Hikarie ShinQs":"https://maps.app.goo.gl/YqqCDLmeMrx6gh9c7"
+
+                 },
+                 link: "", 
+                 types: ["點心"],
+                 images: ["https://bobbyfun.tw/wp-content/uploads/pixnet/d3104fd3491de086909696beb4a953a5.jpg",
+                            "https://bobbyfun.tw/wp-content/uploads/pixnet/3e31fa43e31e6d6832f79369e4749aa8.jpg",
+                        "https://tenjo.tw/wp-content/uploads/2025/04/DSC_2811.jpg",
+                 ]
+             },
+             {
+                 id: 5,
+                 name: "鰻の成瀬",
+                 description: "以經濟實惠的價格就能享用肉質厚實、香氣四溢的鰻魚飯，大受觀光客喜愛",
+                 area: ["上野", "原宿", "六本木"], 
+                 locationLinks: {
+                     "上野":"https://maps.app.goo.gl/ij8T88WPUAg9xtaV8", 
+                     "原宿":"https://maps.app.goo.gl/o61CRXB8RHTuGRFP7",
+                     "六本木":"https://maps.app.goo.gl/5Cy35Pma4jejzx99A",
+
+                 },
+                 link: "", 
+                 types: ["午餐","晚餐"],
+                 images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbTsOhQJsiu1wJsztlUkVIjeE6SRjZ7QAxdg&s",
+                            "https://d1grca2t3zpuug.cloudfront.net/2024/09/66e97ad75294f-870x500.webp",
+                 ]
+             },
+             {
+                 id: 6,
+                 name: "Afuri 拉麵",
+                 description: "以不添加味精的獨創雞湯底，搭配清爽柚子汁，打造出清麗爽口的美味「柚子鹽味拉麵」",
+                 area: ["澀谷", "原宿", "六本木"], 
+                 locationLinks: {
+                     "六本木":"https://maps.app.goo.gl/C7hMzNuzRa6xV4M17", 
+                     "原宿":"https://maps.app.goo.gl/oXcmFjunWG1hybfHA",
+                     "澀谷":"https://maps.app.goo.gl/bwGmehYR18UpJHfA9",
+
+                 },
+                 link: "", 
+                 types: ["午餐","晚餐"],
+                 images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxHIsCS7VKk2MonvWaXm6z-Y_9j7_4CrcTBA&s",
+                 "https://tw.wamazing.com/media/wp-content/uploads/sites/4/2025/07/feature_a-3628_AfuriRamen-857x569.jpg.webp",
+                            "https://alinalife.tw/wp-content/uploads/2023/02/IMG_6932.jpg",
+                 ]
+             },
         ];
+
+        let restaurants = defaultRestaurants;
+        let selectedDiningArea = '全部';
+        let selectedDiningType = '全部';
 
         // ---------------- 功能函式 ----------------
         
@@ -424,7 +616,24 @@
 
                 for (let i = 1; i < rows.length; i++) {
                     if (!rows[i].trim()) continue;
-                    let message = rows[i].startsWith('"') ? rows[i].substring(1, rows[i].indexOf('"', 1)) : rows[i].split(',')[0];
+                    let message = "";
+                    const rowText = rows[i];
+                    if (rowText.startsWith('"')) {
+                        const endQuoteIdx = rowText.indexOf('"', 1);
+                        if (endQuoteIdx !== -1) {
+                            message = rowText.substring(1, endQuoteIdx).replace(/""/g, '"');
+                        } else {
+                            message = rowText;
+                        }
+                    } else {
+                        const commaIdx = rowText.indexOf(',');
+                        if (commaIdx !== -1) {
+                            message = rowText.substring(0, commaIdx);
+                        } else {
+                            message = rowText;
+                        }
+                    }
+
                     if (message && message.trim()) {
                         container.insertAdjacentHTML('beforeend', `<div class="flex items-start text-sm font-medium text-gray-700 bg-white/60 p-2.5 rounded-lg border border-amber-200/50 shadow-sm"><i data-lucide="info" class="w-4 h-4 text-amber-500 mr-2 flex-shrink-0 mt-0.5"></i><span>${message}</span></div>`);
                         hasContent = true;
@@ -440,7 +649,6 @@
             } catch (e) { console.error("公告失敗", e); }
         }
 
-        // ★★★ Google Sheet 記帳整合 ★★★
         async function loadExpensesFromSheet() {
             const list = document.getElementById('expense-list');
             list.innerHTML = `<div class="text-center text-gray-400 text-sm py-10"><i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-2"></i>雲端資料同步中...</div>`;
@@ -449,7 +657,12 @@
                 const response = await fetch(GOOGLE_SCRIPT_URL);
                 const data = await response.json();
                 expenses = data.map(item => ({
-                    id: item.id, item: item.item, amount: parseInt(item.amount), category: item.category || 'other'
+                    id: item.id, 
+                    item: item.item, 
+                    amount: parseInt(item.amount), 
+                    category: item.category || 'other',
+                    // 如果後端資料沒有存付款人，預設為空，或你可以改成 '未記錄'
+                    payers: item.item.includes('(') && item.item.includes(')') ? item.item.split('(')[1].replace(')', '') : '' 
                 }));
                 renderBudget();
             } catch (e) {
@@ -458,19 +671,64 @@
             }
         }
 
+        // ★★★ 新增：渲染付款人選擇器 ★★★
+        function renderPayerSelector() {
+            const container = document.getElementById('payer-selector');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            PAYERS.forEach(payer => {
+                const isSelected = selectedPayers.has(payer);
+                const btnHtml = `
+                    <button onclick="togglePayer('${payer}')" 
+                            class="payer-btn py-2 rounded-lg text-sm font-bold border border-gray-200 
+                            ${isSelected ? 'selected' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'}">
+                        ${payer}
+                    </button>
+                `;
+                container.insertAdjacentHTML('beforeend', btnHtml);
+            });
+        }
+
+        // ★★★ 新增：切換付款人選擇 ★★★
+        function togglePayer(payer) {
+            if (selectedPayers.has(payer)) {
+                selectedPayers.delete(payer);
+            } else {
+                selectedPayers.add(payer);
+            }
+            renderPayerSelector();
+        }
+
         async function addExpense() {
             const itemInput = document.getElementById('expense-item');
             const amountInput = document.getElementById('expense-amount');
             const addBtn = document.getElementById('add-expense-btn');
-            const item = itemInput.value.trim();
+            const itemText = itemInput.value.trim();
             const amount = parseInt(amountInput.value);
 
-            if (item && amount) {
+            if (itemText && amount) {
+                // 將付款人資訊加到項目名稱後面，例如：一蘭拉麵 (正木, 佳菱)
+                let payersStr = "";
+                if (selectedPayers.size > 0) {
+                    payersStr = Array.from(selectedPayers).join(", ");
+                }
+                
+                // 為了方便存入 Google Sheet (你現有的欄位是 ID, Date, Category, Item, Amount)
+                // 我們把付款人合併顯示在 item 欄位，或者如果你願意改 Sheet 結構也可以
+                // 但為了不更動你的後端，我建議合併顯示比較快。
+                const fullItemName = payersStr ? `${itemText} (${payersStr})` : itemText;
+
                 const tempId = Date.now();
-                const newExpense = { id: tempId, item, amount, category: selectedCategory };
+                const newExpense = { id: tempId, item: fullItemName, amount, category: selectedCategory };
                 expenses.push(newExpense); // 樂觀更新
+                
+                // 清空輸入
                 itemInput.value = '';
                 amountInput.value = '';
+                selectedPayers.clear(); // 清空選擇的人
+                renderPayerSelector();
+                
                 renderBudget();
 
                 const originalBtnText = addBtn.innerHTML;
@@ -499,6 +757,8 @@
                     addBtn.disabled = false;
                     addBtn.innerHTML = originalBtnText;
                 }
+            } else {
+                alert("請輸入項目名稱與金額");
             }
         }
 
@@ -530,18 +790,35 @@
             expenses.slice().reverse().forEach(exp => {
                 totalJPY += exp.amount;
                 const cat = expenseCategories[exp.category || 'other'];
+                
+                // 解析 Item 是否包含付款人括號 (顯示優化)
+                let displayName = exp.item;
+                let payerBadge = "";
+                
+                // 簡單判斷是否有括號內容
+                if (exp.item.includes('(') && exp.item.endsWith(')')) {
+                    const parts = exp.item.match(/(.*) \((.*)\)$/);
+                    if (parts && parts.length >= 3) {
+                        displayName = parts[1];
+                        payerBadge = `<div class="text-[10px] text-green-600 bg-green-50 inline-block px-1.5 py-0.5 rounded border border-green-100 mt-0.5 ml-1"><i data-lucide="user" class="w-2 h-2 inline mr-0.5"></i>${parts[2]}</div>`;
+                    }
+                }
+
                 list.insertAdjacentHTML('beforeend', `
                     <div class="flex justify-between items-center bg-white p-4 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] animate-fade-in mb-3">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-${cat.color}-100 flex items-center justify-center mr-3 text-${cat.color}-600">
+                            <div class="w-10 h-10 rounded-full bg-${cat.color}-100 flex items-center justify-center mr-3 text-${cat.color}-600 shrink-0">
                                 <i data-lucide="${cat.icon}" class="w-5 h-5"></i>
                             </div>
                             <div>
-                                <div class="font-bold text-gray-800 text-sm">${exp.item}</div>
-                                <div class="text-[10px] text-gray-400 mt-0.5 bg-gray-50 inline-block px-1.5 py-0.5 rounded border border-gray-100">${cat.label}</div>
+                                <div class="font-bold text-gray-800 text-sm break-all">${displayName}</div>
+                                <div class="flex flex-wrap gap-1">
+                                    <div class="text-[10px] text-gray-400 mt-0.5 bg-gray-50 inline-block px-1.5 py-0.5 rounded border border-gray-100">${cat.label}</div>
+                                    ${payerBadge}
+                                </div>
                             </div>
                         </div>
-                        <div class="text-right">
+                        <div class="text-right shrink-0 ml-2">
                             <div class="font-bold text-gray-800">¥ ${exp.amount.toLocaleString()}</div>
                             <div class="text-xs text-indigo-500 font-medium">NT$ ${Math.round(exp.amount * RATE).toLocaleString()}</div>
                             <button onclick="deleteExpense(${exp.id})" class="text-gray-300 hover:text-red-400 mt-1"><span class="text-[10px]">刪除</span></button>
@@ -658,129 +935,203 @@
             window.lucide.createIcons();
         }
 
-        // 美食
-        let selectedDiningArea = '全部', selectedDiningType = '全部';
+        // ----------------------------------------------------
+        // ★★★ 美食功能 (保留原本的多圖、多連結渲染邏輯) ★★★
+        // ----------------------------------------------------
         function renderDiningPage() {
-            const areaContainer = document.getElementById('dining-area-filters');
-            const typeContainer = document.getElementById('dining-type-filters');
-            const listContainer = document.getElementById('restaurant-list');
+            renderDiningAreaFilters();
+            renderDiningTypeFilters();
+            renderRestaurantList();
+        }
+
+        function renderDiningAreaFilters() {
+            const container = document.getElementById('dining-area-filters');
+            container.innerHTML = '';
             
-            const areaSet = new Set(['全部']);
-            defaultRestaurants.forEach(r => (Array.isArray(r.area) ? r.area : [r.area]).forEach(a => areaSet.add(a)));
+            const areaSet = new Set();
+            areaSet.add('全部');
+            restaurants.forEach(r => {
+                if (Array.isArray(r.area)) { r.area.forEach(a => areaSet.add(a)); } else if (r.area) { areaSet.add(r.area); }
+            });
+
+            Array.from(areaSet).forEach(area => {
+                const isSelected = area === selectedDiningArea;
+                container.insertAdjacentHTML('beforeend', `<button onclick="setDiningAreaFilter('${area}')" class="dining-area-btn flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${isSelected ? 'selected' : 'bg-white text-gray-500 border border-gray-200'}">${area}</button>`);
+            });
+        }
+
+        function renderDiningTypeFilters() {
+            const container = document.getElementById('dining-type-filters');
+            container.innerHTML = '';
+            ['全部', '早餐', '午餐', '晚餐', '點心', '消夜'].forEach(type => {
+                const isSelected = type === selectedDiningType;
+                container.insertAdjacentHTML('beforeend', `<button onclick="setDiningTypeFilter('${type}')" class="dining-type-btn flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${isSelected ? 'selected' : 'bg-white text-gray-500 border border-gray-200'}">${type}</button>`);
+            });
+        }
+
+        function setDiningAreaFilter(area) { selectedDiningArea = area; renderDiningPage(); }
+        function setDiningTypeFilter(type) { selectedDiningType = type; renderDiningPage(); }
+
+        function renderRestaurantList() {
+            const container = document.getElementById('restaurant-list');
+            container.innerHTML = '';
             
-            areaContainer.innerHTML = Array.from(areaSet).map(a => `<button onclick="selectedDiningArea='${a}';renderDiningPage()" class="dining-area-btn flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${a===selectedDiningArea ? 'selected' : 'bg-white text-gray-500 border border-gray-200'}">${a}</button>`).join('');
-            typeContainer.innerHTML = ['全部','早餐','午餐','晚餐','點心','消夜'].map(t => `<button onclick="selectedDiningType='${t}';renderDiningPage()" class="dining-type-btn flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${t===selectedDiningType ? 'selected' : 'bg-white text-gray-500 border border-gray-200'}">${t}</button>`).join('');
-            
-            const filtered = defaultRestaurants.filter(r => {
-                const matchArea = selectedDiningArea === '全部' || (Array.isArray(r.area) ? r.area.includes(selectedDiningArea) : r.area === selectedDiningArea);
-                const matchType = selectedDiningType === '全部' || (r.types && r.types.includes(selectedDiningType));
+            const filtered = restaurants.filter(r => {
+                let matchArea = false;
+                if (selectedDiningArea === '全部') { matchArea = true; } else if (Array.isArray(r.area)) { matchArea = r.area.includes(selectedDiningArea); } else { matchArea = r.area === selectedDiningArea; }
+                const matchType = (selectedDiningType === '全部') || (r.types && r.types.includes(selectedDiningType));
                 return matchArea && matchType;
             });
             
-            if (filtered.length === 0) { listContainer.innerHTML = '<div class="text-center text-gray-400 py-10">無結果</div>'; return; }
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-400 py-10 flex flex-col items-center"><i data-lucide="search-x" class="w-12 h-12 text-gray-200 mb-2"></i><span>此篩選組合下沒有餐廳</span></div>`;
+                window.lucide.createIcons();
+                return;
+            }
 
-            listContainer.innerHTML = filtered.map(res => {
-                const images = res.images?.map(url => `<img src="${url}" onclick="openImageViewer('${url}')" class="h-40 w-auto rounded-lg shadow-sm flex-shrink-0 object-cover bg-gray-100 cursor-zoom-in">`).join('') || '';
-                const types = res.types?.map(t => `<span class="text-[10px] bg-orange-100 text-orange-600 px-2 py-1 rounded-md font-medium mr-1">${t}</span>`).join('') || '';
-                const areaLabel = Array.isArray(res.area) ? res.area.join(' / ') : res.area;
-                let links = res.locationLinks ? `<div class="mt-4 grid grid-cols-3 gap-2">${Object.entries(res.locationLinks).map(([k,v])=>`<a href="${v}" target="_blank" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-bold py-2.5 px-2 rounded-xl flex items-center justify-center">${k}</a>`).join('')}</div>` : `<a href="${res.link}" target="_blank" class="mt-4 w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 font-bold py-2.5 rounded-xl flex items-center justify-center"><i data-lucide="pin" class="w-4 h-4 mr-2"></i>Google Maps</a>`;
-                return `<div class="app-card p-5 relative"><div class="flex justify-between items-start"><div><div class="flex items-center space-x-2 mb-1"><span class="text-xs font-bold text-white bg-gray-400 px-2 py-0.5 rounded-full truncate">${areaLabel}</span><div class="flex">${types}</div></div><h3 class="text-xl font-bold text-gray-800">${res.name}</h3></div></div><div class="flex space-x-2 overflow-x-auto no-scrollbar mt-3 pb-2">${images}</div>${links}</div>`;
-            }).join('');
+            filtered.forEach(res => {
+                let imageHtml = '';
+                if (res.images && res.images.length > 0) {
+                    const images = res.images.map(url => `<img src="${url}" onclick="openImageViewer('${url}')" class="h-40 w-auto rounded-lg shadow-sm flex-shrink-0 object-cover bg-gray-100 cursor-zoom-in active:opacity-80 transition-opacity" onerror="this.style.display='none'">`).join('');
+                    imageHtml = `<div class="flex space-x-2 overflow-x-auto no-scrollbar mt-3 pb-2">${images}</div>`;
+                }
+
+                const typesHtml = (res.types || []).map(t => `<span class="text-[10px] bg-orange-100 text-orange-600 px-2 py-1 rounded-md font-medium mr-1">${t}</span>`).join('');
+                const areaLabel = Array.isArray(res.area) ? res.area.join(' / ') : (res.area || '未分類');
+
+                let buttonsHtml = '';
+                if (res.locationLinks) {
+                    const links = Object.entries(res.locationLinks).map(([locName, url]) => `<a href="${url}" target="_blank" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-bold py-2.5 px-2 rounded-xl flex items-center justify-center transition-colors text-center"><i data-lucide="pin" class="w-3 h-3 mr-1"></i> ${locName}</a>`).join('');
+                    buttonsHtml = `<div class="mt-4 grid grid-cols-3 gap-2">${links}</div>`;
+                } else {
+                    buttonsHtml = `<a href="${res.link}" target="_blank" class="mt-4 w-full bg-indigo-50 hover:bg-indigo-100 text-indigo-600 font-bold py-2.5 rounded-xl flex items-center justify-center transition-colors"><i data-lucide="pin" class="w-4 h-4 mr-2"></i>開啟 Google Maps</a>`;
+                }
+
+                const html = `<div class="app-card p-5 relative"><div class="flex justify-between items-start"><div><div class="flex items-center space-x-2 mb-1"><span class="text-xs font-bold text-white bg-gray-400 px-2 py-0.5 rounded-full max-w-[150px] truncate">${areaLabel}</span><div class="flex">${typesHtml}</div></div><h3 class="text-xl font-bold text-gray-800 leading-tight">${res.name}</h3><p class="text-sm text-gray-500 mt-2 leading-relaxed">${res.description || '暫無介紹'}</p></div></div>${imageHtml}${buttonsHtml}</div>`;
+                container.insertAdjacentHTML('beforeend', html);
+            });
             window.lucide.createIcons();
         }
 
-        // 行程
+        // ----------------------------------------------------
+        // ★★★ 行程功能 (保留圖片直接顯示的邏輯) ★★★
+        // ----------------------------------------------------
         function renderDayTabs() {
             const container = document.getElementById('day-tabs-container');
-            container.innerHTML = Object.keys(itineraryData).map(d => `<button onclick="renderTimeline(${d})" id="tab-${d}" class="day-tab flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-colors shadow-sm ${d==1?'bg-gray-800 text-white':'bg-white text-gray-400 border border-gray-100'}">Day ${d}</button>`).join('');
+            if (!container) return; 
+            container.innerHTML = '';
+            for (let day = 1; day <= Object.keys(itineraryData).length; day++) {
+                container.insertAdjacentHTML('beforeend', `<button onclick="renderTimeline(${day})" id="tab-${day}" class="day-tab flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-colors shadow-sm ${day === 1 ? 'bg-gray-800 text-white' : 'bg-white text-gray-400 border border-gray-100'}">Day ${day}</button>`);
+            }
         }
+
         function renderTimeline(day) {
-            document.querySelectorAll('.day-tab').forEach(t => t.className = 'day-tab flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-colors shadow-sm bg-white text-gray-400 border border-gray-100');
-            document.getElementById(`tab-${day}`).className = 'day-tab flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-colors shadow-sm bg-gray-800 text-white';
-            
-            const d = itineraryData[day];
             const container = document.getElementById('timeline-container');
-            container.innerHTML = `<h2 class="text-2xl font-bold text-gray-800 mb-2 px-2 text-center animate-slide-up">Day ${day}: ${d.date}</h2><p class="text-xl font-medium text-gray-700 text-center mb-6 px-2 animate-slide-up">${d.theme}</p>`;
+            container.innerHTML = '';
+            const dayData = itineraryData[day];
+            if (!dayData) return;
+
+            document.querySelectorAll('.day-tab').forEach(tab => { tab.classList.remove('bg-gray-800', 'text-white'); tab.classList.add('bg-white', 'text-gray-400', 'border', 'border-gray-100'); });
+            const activeTab = document.getElementById(`tab-${day}`);
+            if (activeTab) { activeTab.classList.remove('bg-white', 'text-gray-400', 'border', 'border-gray-100'); activeTab.classList.add('bg-gray-800', 'text-white'); }
             
-            d.items.forEach((item, idx) => {
-                const isLast = idx === d.items.length - 1;
-                container.insertAdjacentHTML('beforeend', `
-                    <div class="flex group animate-slide-up" style="animation-delay:${0.1+idx*0.05}s">
+            container.insertAdjacentHTML('beforeend', `<h2 class="text-2xl font-bold text-gray-800 mb-2 px-2 text-center animate-slide-up">Day ${day}: ${dayData.date}</h2><p class="text-xl font-medium text-gray-700 text-center mb-6 px-2 animate-slide-up" style="animation-delay: 0.1s;">${dayData.theme}</p>`);
+
+            dayData.items.forEach((item, index) => {
+                const isLast = index === dayData.items.length - 1;
+                const itemHtml = `
+                    <div class="flex group animate-slide-up" style="animation-delay: ${0.2 + index * 0.1}s;">
                         <div class="flex-shrink-0 w-20 flex flex-col items-center">
                             <div class="text-lg font-bold text-gray-800 mb-1 pt-1">${item.time}</div>
-                            <div class="w-4 h-4 rounded-full bg-white border-4 border-${item.color}-500 shadow-sm z-10"></div>
+                            <div class="w-4 h-4 rounded-full bg-white border-4 border-${item.color}-500 shadow-sm flex-shrink-0 z-10"></div>
                             ${!isLast ? `<div class="w-0.5 bg-gray-200 flex-grow mt-1 mb-1 -translate-y-1"></div>` : `<div class="w-0.5 bg-transparent h-4"></div>`}
                         </div>
                         <div class="ml-4 w-full pb-8 pr-2">
-                            <div class="app-card interactive p-4 border-l-4 border-${item.color}-300 cursor-pointer" onclick='showDetail(${day}, ${idx})'>
+                            <div class="app-card interactive p-4 border-l-4 border-${item.color}-300 cursor-pointer" onclick="showDetailModal(${day}, ${index})">
                                 <p class="text-xs font-medium text-${item.color}-600 uppercase tracking-wider mb-1 flex items-center"><i data-lucide="${item.icon}" class="w-3 h-3 mr-1"></i>${item.type}</p>
                                 <h3 class="text-lg font-bold text-gray-800">${item.title}</h3>
                                 <p class="text-sm text-gray-600 mt-1 line-clamp-2">${item.desc}</p>
+                                ${item.hasImage ? `<img src="${item.image}" alt="${item.title}" onerror="this.onerror=null; this.src='https://placehold.co/400x200/e5e7eb/4b5563?text=圖片載入失敗'" class="w-full h-24 object-cover rounded-lg mt-3 shadow-sm" />` : ''}
                             </div>
                         </div>
                     </div>
-                `);
+                `;
+                container.insertAdjacentHTML('beforeend', itemHtml);
             });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             window.lucide.createIcons();
-            window.scrollTo({top:0, behavior:'smooth'});
         }
-        function showDetail(day, idx) {
-            const item = itineraryData[day].items[idx];
-            let mapBtn = item.mapLink || item.title.includes('飯店') || item.title.includes('House') ? `<a href="${item.mapLink || 'https://maps.app.goo.gl/pT3x1xYM5SuEb5my6'}" target="_blank" class="w-full py-3.5 rounded-xl font-bold text-white bg-blue-500 hover:bg-blue-600 flex items-center justify-center mt-4"><i data-lucide="map-pin" class="w-5 h-5 mr-2"></i>導航至此地</a>` : '';
-            document.getElementById('modal-dynamic-body').innerHTML = `<div class="text-center mb-6"><div class="w-12 h-12 bg-${item.color}-100 rounded-full mx-auto flex items-center justify-center mb-3"><i data-lucide="${item.icon}" class="w-6 h-6 text-${item.color}-600"></i></div><p class="text-xs font-medium text-${item.color}-600 uppercase">${itineraryData[day].date}</p><h2 class="text-2xl font-extrabold text-gray-800 mt-1">${item.title}</h2></div>${item.hasImage?`<img src="${item.image}" class="w-full h-48 object-cover rounded-xl mb-6 shadow-lg">`:''}<div class="space-y-4"><div><h3 class="font-bold text-gray-700">活動描述</h3><p class="text-gray-600 mt-1">${item.desc}</p></div>${item.note?`<div><h3 class="font-bold text-gray-700 text-red-500">特別備註</h3><p class="text-red-700 bg-red-50 p-2 rounded">${item.note}</p></div>`:''}</div>${mapBtn}`;
+
+        function showDetailModal(day, index) {
+            const item = itineraryData[day].items[index];
+            const modalBody = document.getElementById('modal-dynamic-body');
+            
+            let mapButton = '';
+            if (item.mapLink) {
+                mapButton = `<a href="${item.mapLink}" target="_blank" class="w-full py-3.5 rounded-xl font-bold text-white bg-blue-500 hover:bg-blue-600 active:scale-[0.99] transition-transform flex items-center justify-center mt-4"><i data-lucide="map-pin" class="w-5 h-5 mr-2"></i>導航至此地</a>`;
+            } else if (item.title.includes('飯店') || item.title.includes('House')) {
+                const accommodationMapLink = (item.title.includes('東京灣東方飯店')) ? 'https://maps.app.goo.gl/YYsdyzutBd9xgjSD8' : (item.title.includes('Paul House')) ? 'https://maps.app.goo.gl/pT3x1xYM5SuEb5my6' : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title)}`;
+                mapButton = `<a href="${accommodationMapLink}" target="_blank" class="w-full py-3.5 rounded-xl font-bold text-white bg-blue-500 hover:bg-blue-600 active:scale-[0.99] transition-transform flex items-center justify-center mt-4"><i data-lucide="map-pin" class="w-5 h-5 mr-2"></i>導航至此地</a>`;
+            }
+
+            modalBody.innerHTML = `<div class="text-center mb-6"><div class="w-12 h-12 bg-${item.color}-100 rounded-full mx-auto flex items-center justify-center mb-3"><i data-lucide="${item.icon}" class="w-6 h-6 text-${item.color}-600"></i></div><p class="text-xs font-medium text-${item.color}-600 uppercase tracking-wider">${itineraryData[day].date}</p><h2 class="text-2xl font-extrabold text-gray-800 mt-1">${item.title}</h2></div>${item.hasImage ? `<img src="${item.image}" class="w-full h-48 object-cover rounded-xl mb-6 shadow-lg" />` : ''}<div class="space-y-4"><div><h3 class="font-bold text-gray-700">活動描述</h3><p class="text-gray-600 mt-1">${item.desc}</p></div>${item.note ? `<div><h3 class="font-bold text-gray-700 flex items-center"><i data-lucide="clipboard-list" class="w-4 h-4 mr-1 text-red-500"></i>特別備註</h3><div class="mt-1 p-3 bg-red-50 border-l-4 border-red-300 text-red-700 rounded-r-md">${item.note}</div></div>` : ''}</div>${mapButton}`;
             document.body.classList.add('modal-active');
             window.lucide.createIcons();
         }
+
         function closeModal() { document.body.classList.remove('modal-active'); }
         
-        // 圖片與匯率
         function openImageViewer(url) { 
             const m = document.getElementById('image-viewer-modal'), i = document.getElementById('image-viewer-img');
-            i.src = url; m.classList.remove('hidden', 'opacity-0'); i.classList.remove('scale-95'); i.classList.add('scale-100');
+            i.src = url; m.classList.remove('hidden'); void m.offsetWidth; m.classList.remove('opacity-0'); i.classList.remove('scale-95'); i.classList.add('scale-100');
         }
         function closeImageViewer() {
             const m = document.getElementById('image-viewer-modal'), i = document.getElementById('image-viewer-img');
             m.classList.add('opacity-0'); i.classList.remove('scale-100'); i.classList.add('scale-95');
-            setTimeout(() => m.classList.add('hidden'), 300);
+            setTimeout(() => { m.classList.add('hidden'); i.src = ''; }, 300);
         }
-        function toggleCurrency() { document.getElementById('currency-modal').classList.toggle('hidden'); }
+        function toggleCurrency() { document.getElementById('currency-modal').classList.toggle('hidden'); if(!document.getElementById('currency-modal').classList.contains('hidden')) document.getElementById('jpy-input').focus(); }
         function calcRate() { document.getElementById('twd-output').innerText = Math.round(document.getElementById('jpy-input').value * RATE).toLocaleString(); }
 
-        // 頁面切換
         function renderPage(pageId) {
-            window.scrollTo(0,0);
-            ['home','timeline','budget','dining'].forEach(id => {
-                const el = document.getElementById(id+'-page');
-                if(id===pageId) { el.classList.remove('hidden-page'); el.classList.add('active-page','animate-fade-in'); }
-                else { el.classList.remove('active-page','animate-fade-in'); el.classList.add('hidden-page'); }
-                
-                const nav = document.getElementById('nav-'+id);
-                if(id===pageId) { nav.classList.remove('text-gray-400'); nav.classList.add('text-gray-800'); }
-                else { nav.classList.remove('text-gray-800'); nav.classList.add('text-gray-400'); }
+            window.scrollTo(0, 0);
+            ['home', 'timeline', 'budget', 'dining'].forEach(id => {
+                const pageElement = document.getElementById(`${id}-page`);
+                if (id === pageId) { pageElement.classList.remove('hidden-page'); pageElement.classList.add('active-page', 'animate-fade-in'); } else { pageElement.classList.remove('active-page', 'animate-fade-in'); pageElement.classList.add('hidden-page'); }
             });
-            if(pageId === 'timeline') renderTimeline(1);
-            if(pageId === 'budget') { renderCategorySelector(); loadExpensesFromSheet(); }
-            if(pageId === 'dining') renderDiningPage();
-            if(pageId === 'home') {
-                if(!document.getElementById('weekly-forecast-container').innerHTML) fetchWeather();
+            ['nav-home', 'nav-timeline', 'nav-budget', 'nav-dining'].forEach(id => {
+                const navElement = document.getElementById(id);
+                if (id.includes(pageId)) { navElement.classList.remove('text-gray-400', 'inactive-nav-item'); navElement.classList.add('text-gray-800', 'active-nav-item'); } else { navElement.classList.remove('text-gray-800', 'inactive-nav-item'); navElement.classList.add('text-gray-400', 'inactive-nav-item'); }
+            });
+            if (pageId === 'timeline') { renderTimeline(1); } 
+            else if (pageId === 'budget') { renderCategorySelector(); renderPayerSelector(); loadExpensesFromSheet(); } 
+            else if (pageId === 'dining') { renderDiningPage(); } 
+            else if (pageId === 'home') {
+                const hourlyContainer = document.getElementById('hourly-forecast-container');
+                if (hourlyContainer.innerText.includes('讀取中')) fetchWeather();
                 fetchAnnouncements();
             }
         }
 
-        // 初始化
-        window.onload = function() {
+        function initCountdown() {
+            const diff = new Date("2026-01-11T00:00:00").getTime() - Date.now();
+            const el = document.getElementById('countdown-timer');
+            if (diff < 0) { el.classList.remove('hidden'); el.className = "mt-3 inline-block bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-bold tracking-wide"; el.innerText = "旅程進行中 / 已結束"; return; }
+            el.classList.remove('hidden'); el.innerText = `距離出發還有 ${Math.floor(diff / (1000 * 60 * 60 * 24))} 天`;
+        }
+
+        function initApp() {
             window.lucide.createIcons();
             initLocationSelector();
             renderPackingList();
             renderDayTabs();
-            
-            // 倒數計時
-            const diff = new Date("2026-01-11").getTime() - Date.now();
-            if(diff>0) document.getElementById('countdown-timer').innerText = `還有 ${Math.floor(diff/(86400000))} 天`;
-            else document.getElementById('countdown-timer').classList.remove('hidden');
-
+            initCountdown();
+            fetchAnnouncements();
             renderPage('home');
-        };
+        }
+
+        window.onload = initApp;
+
     </script>
 </body>
 </html>
