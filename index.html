@@ -257,7 +257,7 @@
                 
                 <div class="mb-4">
                     <div class="flex justify-between items-center mb-2">
-                         <p class="text-[10px] font-bold text-gray-400 uppercase">是誰先墊錢? (可多選)</p>
+                         <p class="text-[10px] font-bold text-gray-400 uppercase">出錢? (可多選)</p>
                     </div>
                     <div class="grid grid-cols-4 gap-2" id="payer-selector">
                         </div>
@@ -438,19 +438,8 @@
                      { time: "10:00", title: "晴空塔 Skytree", type: "sightseeing", color: "sky", icon: "tower-control", desc: "參觀晴空塔及 Solamachi 商場。", hasImage: true,image:"https://dimg04.tripcdn.com/images/0102s120007hc2ubpAC60.jpg" },
                      { time: "11:00", title: "午餐：敘敘苑或同級燒肉", type: "food", color: "orange", icon: "flame", desc: "在晴空塔30樓享用午餐燒肉。", hasImage: false },
                      { time: "13:00", title:  "淺草寺", type: "sightseeing", color: "red", icon: "camera", desc: "參觀雷門、仲見世通，並參拜淺草寺。", hasImage: true, image: "https://static.gltjp.com/glt/data/article/11000/10068/20230523_002407_ad532d77_w1920.webp" },
-                     { time: "15:00", title: "前往東京灣東方飯店 Check-in", type: "stay", color: "purple", icon: "luggage", desc: "從上野搭車前往舞濱，將行李寄放至飯店。", note: "第二段住宿開始 (2 晚)，預計 1/16 退房。", hasImage: false },
-                     { 
-                        time: "17:30", 
-                        title: "teamLab Planets TOKYO DMM", 
-                        type: "fun", 
-                        color: "indigo", 
-                        icon: "sparkles", 
-                        desc: "體驗型數位藝術展，沉浸在光影世界。", 
-                        note: "記得穿著輕便服裝，可能會赤腳及接觸水。一般營業時間為 9:00-22:00，最晚入場時間為閉館前 1 小時。請務必依照預購票券上的指定時間入場。", 
-                        hasImage: true, 
-                        image: TEAMLAB_PLANETS_IMAGE,
-                        mapLink:"https://maps.app.goo.gl/LiZBJrZPB6xcS7m98",
-                     } 
+                     { time: "15:30", title: "前往東京灣東方飯店 Check-in", type: "stay", color: "purple", icon: "luggage", desc: "從上野搭車前往新浦安(避免交通尖峰時刻)。", note: "第二段住宿開始 (2 晚)，預計 1/16 退房。", hasImage: false },
+                     { time: "17:30", title: "Aeon mall & Costco", type: "shopping", color: "pink",  icon: "store", desc: "最後的採買及逛街。", hasImage: false,  } 
                  ]
             },
             5: {
@@ -479,9 +468,8 @@
                 theme: "舞濱周邊，回程",
                 items: [
                     { time: "09:00", title: "飯店退房並寄放行李", type: "stay", color: "purple", icon: "log-out", desc: "辦理退房手續，將行李寄放在飯店櫃檯。", hasImage: false },
-                    { time: "10:00", title: "Aeon mall購物中心 / Costco好市多", type: "shopping", color: "pink", icon: "store", desc: "進行最後的採購。", hasImage: false },
-                    { time: "12:00", title: "午餐 (Aeon mall內享用)", type: "food", color: "utensils", desc: "把握用餐時間要回飯店搭乘巴士。", hasImage: false },
-                    { time: "13:30", title: "返回飯店", type: "transport", color: "purple", icon: "train", desc: "返回飯店領取行李。", hasImage: false },
+                    { time: "10:00", title: "PlanA:三井 Outlet Park 幕張 || PlanB:葛西臨海公園 || PlanC:新浦安站周邊 (AEON Style & MONA)", type: "shopping", color: "pink", icon: "store", desc: "",note:"🌟 綜合推薦與星級評分第一名：Plan C (新浦安站周邊)推薦指數： ★★★ (3顆星 - 最完美)理由：絕對安全：您必須在 13:30 回飯店拿行李趕機場巴士，Plan C 讓您完全沒有「錯過電車」的壓力。最後採購最方便：AEON Style 就在車站旁，這是買最後一波伴手禮（草莓、泡麵、日本酒、調味料）塞進行李箱的最佳機會。時間彈性：您可以睡到 10 點退房，悠閒吃早午餐，優雅地結束旅程。     第二名：Plan A (海濱幕張 Outlet)推薦指數： ★★☆ (2.5顆星 - 值得一去)理由：效率高：如果您 Day 3 在御殿場還有遺珠之憾（特別是運動鞋或日牌服飾），這裡就在車站旁，2 小時非常夠逛。午餐豐富：車站前的 PLENA 幕張有很多餐廳選擇（如 Ikinari Steak），吃完馬上跳上電車回飯店，時間還算充裕。       第三名：Plan B (葛西臨海公園) 推薦指數： ★☆☆ (1顆星 - 較不建議) 理由：季節不對：1月份東京灣的海風非常冷，在戶外公園吹風可能會讓您在搭機前感到不適。時間尷尬：水族館若要認真逛需要時間，若只是去搭摩天輪又稍顯單調。除非您非常想看海或水族生物，否則CP值不如前兩者。", hasImage: false },
+                    { time: "13:15", title: "返回飯店", type: "transport", color: "purple", icon: "train", desc: "返回飯店領取行李。", hasImage: false },
                     { time: "14:20", title: "搭乘巴士前往成田機場 (NRT T2)", type: "transport", color: "blue", icon: "train", desc: "14:10要到公車牌等。", note: "預計 18:25 虎航 IT203 登機。", hasImage: false },
                     { time: "18:25", title: "登機 (IT203) & 返回台灣", type: "transport", color: "blue", icon: "plane-takeoff", desc: "辦理報到、通關，準備登機。", hasImage: false }
                 ]
