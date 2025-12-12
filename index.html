@@ -391,22 +391,12 @@
                     { time: "06:30", title: "成田機場 (NRT T1) 入境", type: "transport", color: "blue", icon: "plane-landing", desc: "樂桃 MM620 抵達。辦理入境手續、購買交通券。", note: "紅眼航班，注意精神狀態。預計抵達 NRT T1。", hasImage: false },
                     { time: "08:00", title: "搭乘skyliner至京成上野站", type: "transport", color: "slate", icon: "train", desc: "搭乘京成電鐵前往上野。", note: "已經在klook在購票。", hasImage: false },
                     { time: "09:00", title: "寄放行李(車站寄放)及吃早餐", type: "stay", color: "indigo", icon: "bed", desc: "不放bnb", hasImage: false },
-                    { time: "10:45", title: "上野公園漫步", type: "sightseeing", color: "yellow", icon: "tree", desc: "上野東照宮。這裡金碧輝煌，非常適合拍照，而且有祈求幸運的御守，跟明治神宮的森林感完全不同，但同樣有日本味。", hasImage: false },
-                    { time: "12:00", title: "出發原宿", type: "sightseeing", color: "yellow", icon: "bus", desc: "出發原宿。", hasImage: false },
-                    { time: "12:45", title: "午餐：原宿周邊", type: "food", color: "orange", icon: "utensils", desc: "推間Afuri拉麵。", hasImage: false },
+                    { time: "10:45", title: "上野公園漫步", type: "sightseeing", color: "yellow", icon: "telescope", desc: "上野東照宮。這裡金碧輝煌，非常適合拍照，而且有祈求幸運的御守，跟明治神宮的森林感完全不同，但同樣有日本味。", hasImage: false },
+                    { time: "12:00", title: "出發原宿", type: "transport", color: "blue", icon: "train", desc: "出發原宿。", hasImage: false },
+                    { time: "12:45", title: "午餐：原宿周邊", type: "food", color: "orange", icon: "utensils", desc: "推薦Afuri拉麵。", hasImage: false },
                     { time: "14:30", title: "澀谷、原宿、表參道", type: "shopping", color: "pink", icon: "shopping-bag", desc: "東京潮流文化集中地，逛街採購與感受氛圍。", note: "重點：竹下通、表參道精品店。", hasImage: true, image: "https://static.gltjp.com/glt/data/article/21000/20511/20231107_091714_48c48022_w1920.webp" },
-                    { 
-                        time: "16:00", 
-                        title: "澀谷 SHIBUYA SKY 展望台", 
-                        type: "sightseeing", 
-                        color: "sky", 
-                        icon: "telescope", 
-                        desc: "登上展望台，欣賞東京日落及著名的十字路口。", 
-                        note: "記得提前換票，預計在日落時段。", 
-                        hasImage: true, 
-                        image: SHIBUYA_SKY_IMAGE 
-                    }, 
-                    { time: "17:45", title: "晚餐：澀谷周邊", type: "food", color: "orange", icon: "utensils", desc: "推薦根津牛舌。", hasImage: false },
+                    { time: "16:00", title: "澀谷 SHIBUYA SKY 展望台", type: "sightseeing", color: "sky", icon: "telescope", desc: "登上展望台，欣賞東京日落及著名的十字路口。", note: "記得提前換票，預計在日落時段。", hasImage: true, image: SHIBUYA_SKY_IMAGE }, 
+                    { time: "17:45", title: "晚餐：澀谷周邊", type: "food", color: "orange", icon: "utensils", desc: "推薦美登祿壽司。", hasImage: false },
                     { time: "20:00", title: "Check-in Paul House (上野)", type: "stay", color: "indigo", icon: "bed", desc: "返回上野，領取行李，辦理 Paul House 入住。", note: "第一段住宿開始，共 3 晚。", hasImage: false }
                 ]
             },
@@ -414,20 +404,23 @@
                 date: "1/12 (週一)",
                 theme: "築地海鮮與鎌倉高校巡禮",
                 items: [
-                    { time: "08:00", title: "築地場外市場", type: "food", color: "orange", icon: "fish", desc: "早餐：海鮮丼、玉子燒等，享受新鮮美味。", note: "建議提早前往，避開人潮。", hasImage: true, image: "https://images.unsplash.com/photo-1518659684787-846399b14800?auto=format&fit=crop&q=80&w=600" },
+                    { time: "07:30", title: "前往築地市場", type: "transport", color: "slate", icon: "bus", desc: "從仲御徒町站出發搭乘日比谷線。", note: "需購買一日券或使用交通卡。", hasImage: false,mapLink:"https://maps.app.goo.gl/SkVUBoR6zJVvCQ7A6" },
+                    { time: "08:00", title: "築地場外市場", type: "food", color: "orange", icon: "fish", desc: "早餐：海鮮丼、玉子燒等，享受新鮮美味。", note: "停留最晚不超過10:15。", hasImage: true, image: "https://static01.nyt.com/images/2015/11/15/travel/15TOKYO1/15TOKYO1-articleLarge.jpg?quality=75&auto=webp&disable=upscale" },
                     { time: "10:30", title: "前往鎌倉 (江之島電鐵)", type: "transport", color: "slate", icon: "bus", desc: "搭乘電車前往鎌倉，準備開始一日遊。", note: "需購買一日券或使用交通卡。", hasImage: false },
-                    { time: "12:00", title: "鶴岡八幡宮", type: "sightseeing", color: "red", icon: "church", desc: "鎌倉最主要的神社，感受古都的歷史氛圍。", hasImage: false },
+                    { time: "12:00", title: "鶴岡八幡宮&小町通", type: "sightseeing", color: "red", icon: "church", desc: "鎌倉最主要的神社，感受古都的歷史氛圍。", hasImage: true,image:"https://photo.settour.com.tw/900x600/https://www.settour.com.tw/ss_img/info/location/YOK/K0/YOK0000037/YOK0000037_114703.jpg"},
                     { time: "14:00", title: "鎌倉大佛 (高德院)", type: "sightseeing", color: "green", icon: "mountain", desc: "日本第二大的佛像，近距離感受其莊嚴。", hasImage: true, image: "https://www.bring-you.info/imgs/2020/05/kamakura-daibutsu-11.jpg", mapLink: "https://maps.app.goo.gl/METUAAiYjGMZNZak8" },
-                    { time: "16:00", title: "鎌倉高校前站", type: "sightseeing", color: "purple", icon: "camera", desc: "《灌籃高手》經典平交道場景拍照打卡。", note: "注意交通安全，不要影響當地居民。", hasImage: true, image: "https://images.unsplash.com/photo-1588667362615-56f4d2f8832c?auto=format&fit=crop&q=80&w=600" },
-                    { time: "18:30", title: "晚餐 & 返回上野", type: "food", color: "orange", icon: "ramen", desc: "在鎌倉或返回上野後用晚餐。", hasImage: false }
+                    { time: "16:00", title: "鎌倉高校前站", type: "sightseeing", color: "purple", icon: "camera", desc: "《灌籃高手》經典平交道場景拍照打卡。", note: "注意交通安全，不要影響當地居民。", hasImage: true, image: "https://www.bring-you.info/imgs/2014/08/kamakura-high-school-2.jpg" },
+                    { time: "18:30", title: "晚餐 & 返回上野", type: "food", color: "orange", icon: "ramen", desc: "在鎌倉或返回上野後用晚餐，推薦根津牛舌。", hasImage: false }
                 ]
             },
             3: {
                 date: "1/13 (週二)",
                 theme: "御殿場購物與阿美橫町",
                 items: [
-                    { time: "09:00", title: "御殿場 Premium Outlets", type: "shopping", color: "pink", icon: "gift", desc: "開始一整天的購物行程，靠近富士山。", note: "預留一整天時間，交通方式需提前確認 (巴士或火車)。", hasImage: true, image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/pdmixlvkdtvhh2kkgesu/%E5%BE%A1%E6%AE%BF%E5%A0%B4%20Premium%20Outlets%EF%BC%86%E6%9C%A8%E4%B9%8B%E8%8A%B1%E4%B9%8B%E6%B9%AF%E7%A7%81%E4%BA%BA%E5%8C%85%E8%BB%8A%E4%B8%80%E6%97%A5%E9%81%8A.jpg" },
+                    { time: "09:00", title: "出發御殿場", type: "transport", color: "gray", icon: "bus", desc: "東京車站八重洲口搭公車(已預約)。", hasImage: false },
+                    { time: "10:45", title: "御殿場 Premium Outlets", type: "shopping", color: "pink", icon: "gift", desc: "開始一整天的購物行程，靠近富士山。", note: "預留一整天時間，交通方式需提前確認 (巴士或火車)。", hasImage: true, image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/pdmixlvkdtvhh2kkgesu/%E5%BE%A1%E6%AE%BF%E5%A0%B4%20Premium%20Outlets%EF%BC%86%E6%9C%A8%E4%B9%8B%E8%8A%B1%E4%B9%8B%E6%B9%AF%E7%A7%81%E4%BA%BA%E5%8C%85%E8%BB%8A%E4%B8%80%E6%97%A5%E9%81%8A.jpg" },
                     { time: "13:00", title: "午餐 (Outlet內)", type: "food", color: "orange", icon: "coffee", desc: "在 Outlet 內的美食廣場或餐廳用餐。", hasImage: false },
+                    { time: "16:00", title: "返回東京", type: "transport, color: "orange", icon: "coffee", desc: "在 Outlet 內的美食廣場或餐廳用餐。", hasImage: false },
                     { time: "18:00", title: "阿美橫丁 (Ameya-Yokocho)", type: "shopping", color: "amber", icon: "store", desc: "返回上野，在阿美橫丁體驗熱鬧的市集氛圍，採購零食藥妝。", note: "OS藥妝、多慶屋...必逛", hasImage: true ,image: "https://static.gltjp.com/glt/data/article/21000/20604/20240127_170506_1fb1a47e_w1920.webp"},
                     { time: "20:00", title: "晚餐：阿美橫丁居酒屋", type: "food", color: "red", icon: "beer", desc: "在阿美橫丁附近享用日式居酒屋美食。", hasImage: false }
                 ]
