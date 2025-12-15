@@ -363,9 +363,8 @@
         let expenses = [];
         let selectedCategory = 'food';
         
-        // ★★★ 新增：付款人邏輯 ★★★
         const PAYERS = ["正木", "佳菱", "又誠", "祐豪"];
-        let selectedPayers = new Set(); // 使用 Set 來儲存多選
+        let selectedPayers = new Set(); 
 
         // 靜態資料設定
         const weatherLocations = [
@@ -420,14 +419,14 @@
                     { time: "09:00", title: "出發御殿場", type: "transport", color: "gray", icon: "bus", desc: "東京車站八重洲口搭公車(已預約)。", hasImage: false },
                     { time: "10:45", title: "御殿場 Premium Outlets", type: "shopping", color: "pink", icon: "gift", desc: "開始一整天的購物行程，靠近富士山。", note: "預留一整天時間，交通方式需提前確認 (巴士或火車)。", hasImage: true, image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/pdmixlvkdtvhh2kkgesu/%E5%BE%A1%E6%AE%BF%E5%A0%B4%20Premium%20Outlets%EF%BC%86%E6%9C%A8%E4%B9%8B%E8%8A%B1%E4%B9%8B%E6%B9%AF%E7%A7%81%E4%BA%BA%E5%8C%85%E8%BB%8A%E4%B8%80%E6%97%A5%E9%81%8A.jpg" },
                     { time: "13:00", title: "午餐 (Outlet內)", type: "food", color: "orange", icon: "coffee", desc: "在 Outlet 內的美食廣場或餐廳用餐。", hasImage: false },
-                    { time: "16:00", title: "返回東京", type: "transport", color: "orange", icon: "coffee", desc: "在 Outlet 內的美食廣場或餐廳用餐。", hasImage: false },
+                    { time: "16:00", title: "返回東京", type: "transport", color: "blue", icon: "bus", desc: "搭車返回東京。", hasImage: false },
                     { time: "18:00", title: "阿美橫丁 (Ameya-Yokocho)", type: "shopping", color: "amber", icon: "store", desc: "返回上野，在阿美橫丁體驗熱鬧的市集氛圍，採購零食藥妝。", note: "OS藥妝、多慶屋...必逛", hasImage: true ,image: "https://static.gltjp.com/glt/data/article/21000/20604/20240127_170506_1fb1a47e_w1920.webp"},
                     { time: "20:00", title: "晚餐：阿美橫丁居酒屋", type: "food", color: "red", icon: "beer", desc: "在阿美橫丁附近享用日式居酒屋美食。", hasImage: false }
                 ]
             },
             4: {
                  date: "1/14 (週三)",
-                 theme: "淺草、晴空塔與 teamLab 移居舞濱",
+                 theme: "淺草、晴空塔與移居舞濱",
                  items: [
                      { time: "09:30", title: "出發晴空塔", type: "transport", color: "blue", icon: "bus", desc: "抵達押上站。", hasImage: false,},
                      { time: "10:00", title: "晴空塔 Skytree", type: "sightseeing", color: "sky", icon: "tower-control", desc: "參觀晴空塔及 Solamachi 商場。", hasImage: true,image:"https://dimg04.tripcdn.com/images/0102s120007hc2ubpAC60.jpg" },
@@ -510,7 +509,7 @@
                  description: "東京常見的平價美味牛舌連鎖店，特色是提供厚切牛舌、山藥泥麥飯、牛尾湯的套餐。",
                  area: ["上野", "澀谷", "池袋"], 
                  locationLinks: {
-                     "上野": "https://maps.app.goo.gl/uwXZ9ybwr18FfL4r9?g_st=ipc", 
+                     "上野": "https://maps.app.goo.gl/ueno_link_here", 
                      "澀谷道玄坂": "https://maps.app.goo.gl/AEis6dWZorSQiSnY7",
                      "澀谷中心街": "https://maps.app.goo.gl/uhEiEj3kgF3Vu41A9",
                      "原宿": "https://maps.app.goo.gl/tf77h2y7xdx7QfY9A",
@@ -1014,10 +1013,25 @@
             const dayData = itineraryData[day];
             if (!dayData) return;
 
-            document.querySelectorAll('.day-tab').forEach(tab => { tab.classList.remove('bg-gray-800', 'text-white'); tab.classList.add('bg-white', 'text-gray-400', 'border', 'border-gray-100'); });
+            // 1. 更新按鈕樣式
+            document.querySelectorAll('.day-tab').forEach(tab => { 
+                tab.classList.remove('bg-gray-800', 'text-white'); 
+                tab.classList.add('bg-white', 'text-gray-400', 'border', 'border-gray-100'); 
+            });
             const activeTab = document.getElementById(`tab-${day}`);
-            if (activeTab) { activeTab.classList.remove('bg-white', 'text-gray-400', 'border', 'border-gray-100'); activeTab.classList.add('bg-gray-800', 'text-white'); }
+            if (activeTab) { 
+                activeTab.classList.remove('bg-white', 'text-gray-400', 'border', 'border-gray-100'); 
+                activeTab.classList.add('bg-gray-800', 'text-white'); 
+                
+                // ★★★ 新增：自動捲動到中間 ★★★
+                activeTab.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center'
+                });
+            }
             
+            // 2. 渲染內容
             container.insertAdjacentHTML('beforeend', `<h2 class="text-2xl font-bold text-gray-800 mb-2 px-2 text-center animate-slide-up">Day ${day}: ${dayData.date}</h2><p class="text-xl font-medium text-gray-700 text-center mb-6 px-2 animate-slide-up" style="animation-delay: 0.1s;">${dayData.theme}</p>`);
 
             dayData.items.forEach((item, index) => {
@@ -1118,5 +1132,3 @@
     </script>
 </body>
 </html>
-
-
