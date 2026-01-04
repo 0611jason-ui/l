@@ -846,9 +846,9 @@
         function selectCategory(key) { selectedCategory = key; renderCategorySelector(); }
 
         let packingListItems = JSON.parse(localStorage.getItem('myTripPackingList')) || [
-            { id: 1, text: "護照、機票", checked: false }, { id: 2, text: "日幣現金與信用卡", checked: false },
-            { id: 3, text: "手機、充電器", checked: false }, { id: 4, text: "網卡/Wifi 機", checked: false },
-            { id: 5, text: "衣物外套", checked: false }, { id: 6, text: "禦寒配件", checked: false }, { id: 7, text: "轉接頭", checked: false }
+            { id: 1, text: "護照、個人證件(健保卡、身分證)", checked: false }, { id: 2, text: "日幣、台幣與信用卡", checked: false },
+            { id: 3, text: "手機、充電器、行動電源", checked: false }, { id: 4, text: "esim", checked: false },
+            { id: 5, text: "換洗衣物、禦寒配件", checked: false }, { id: 6, text: "藥物、保健食品", checked: false }, { id: 7, text: "景點門票(skyliner、澀谷sky、迪士尼海洋", checked: false }
         ];
         function togglePackingItem(id) {
             const item = packingListItems.find(i => i.id === id);
@@ -1132,3 +1132,4 @@
     </script>
 </body>
 </html>
+
