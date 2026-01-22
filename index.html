@@ -394,8 +394,22 @@
     </div>
 
     <script>
-        // --- 密碼鎖定邏輯 ---
-        const PASSCODE = "0611";
+        // --- 🔒 加密版密碼鎖定邏輯 ---
+        
+        // 這是 "0611" 經過雜湊運算後的結果
+        // 如果您之後想改密碼，請使用 console.log(simpleHash("您的新密碼")) 算出新數值填入這裡
+        const PASSCODE_HASH = "1483430"; 
+
+        // 簡單的雜湊演算法 (將文字轉為不可逆的數字)
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = (hash << 5) - hash + char;
+                hash |= 0; // Convert to 32bit integer
+            }
+            return hash.toString();
+        }
 
         function checkAutoLogin() {
             const input = document.getElementById('password-input');
@@ -406,7 +420,8 @@
             err.classList.add('opacity-0');
             
             if(input.value.length === 4) {
-                if(input.value === PASSCODE) {
+                // 將使用者輸入的內容進行雜湊，然後跟目標雜湊值比對
+                if(simpleHash(input.value) === PASSCODE_HASH) {
                     // 密碼正確
                     input.blur(); // 收起鍵盤
                     lockScreen.style.opacity = '0';
