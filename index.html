@@ -61,10 +61,45 @@
             100% { background-color: rgba(255, 251, 235, 1); }
         }
         .announcement-active { animation: highlight-pulse 3s infinite ease-in-out; }
+
+        /* 鎖定畫面動畫 */
+        #lock-screen { transition: opacity 0.5s ease-out, visibility 0.5s; }
+        .shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
     </style>
 </head>
 <body class="min-h-screen">
 
+    <div id="lock-screen" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-8">
+        <div class="mb-10 text-center">
+            <div class="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="lock" class="w-8 h-8 text-indigo-500"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-800 tracking-widest mb-2">2026日本旅遊</h1>
+            <p class="text-gray-400 text-xs tracking-wide">PRIVATE TRAVEL APP</p>
+        </div>
+        
+        <div class="w-full max-w-[200px]">
+            <p class="text-center text-xs text-gray-400 mb-2">請輸入密碼解鎖</p>
+            <div class="relative">
+                <input type="password" id="password-input" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="••••" 
+                    class="w-full text-center text-4xl tracking-[0.5em] font-bold border-b-2 border-gray-200 py-2 focus:outline-none focus:border-indigo-500 transition-colors bg-transparent text-gray-800 placeholder-gray-200"
+                    oninput="checkAutoLogin()">
+            </div>
+            <p id="login-error" class="text-rose-500 text-xs text-center mt-3 opacity-0 transition-opacity font-bold">
+                <i data-lucide="alert-circle" class="w-3 h-3 inline mr-1"></i>密碼錯誤
+            </p>
+        </div>
+        
+        <div class="absolute bottom-10 text-gray-300 text-[10px]">
+            Created for the 2026 Trip
+        </div>
+    </div>
     <div class="max-w-xl mx-auto px-4 pt-8">
         
         <div id="home-page" class="page-transition hidden-page">
@@ -359,6 +394,38 @@
     </div>
 
     <script>
+        // --- 密碼鎖定邏輯 ---
+        const PASSCODE = "0611";
+
+        function checkAutoLogin() {
+            const input = document.getElementById('password-input');
+            const err = document.getElementById('login-error');
+            const lockScreen = document.getElementById('lock-screen');
+            
+            // 只要輸入，先清除錯誤訊息
+            err.classList.add('opacity-0');
+            
+            if(input.value.length === 4) {
+                if(input.value === PASSCODE) {
+                    // 密碼正確
+                    input.blur(); // 收起鍵盤
+                    lockScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        lockScreen.style.visibility = 'hidden';
+                    }, 500);
+                } else {
+                    // 密碼錯誤
+                    input.value = '';
+                    err.classList.remove('opacity-0');
+                    // 觸發震動動畫
+                    lockScreen.classList.remove('shake');
+                    void lockScreen.offsetWidth; // trigger reflow
+                    lockScreen.classList.add('shake');
+                }
+            }
+        }
+        // ------------------
+    
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfKE9a5_Ourf3PqWHXBX4KqGOQyqUrz5fK-fNdiMZTAac6vuNDlGuc-XD5IeLGS1gd/exec";
         
         const RATE = 0.205;
@@ -1132,8 +1199,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
